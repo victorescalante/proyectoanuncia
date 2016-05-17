@@ -155,6 +155,7 @@ return [
         Anuncia\Providers\AuthServiceProvider::class,
         Anuncia\Providers\EventServiceProvider::class,
         Anuncia\Providers\RouteServiceProvider::class,
+        Anuncia\Providers\ViewComposerServiceProvider::class,
 
     ],
 
