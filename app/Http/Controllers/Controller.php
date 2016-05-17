@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Anuncia\Http\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
