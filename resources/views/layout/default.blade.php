@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-
-<html lang="en">
-
+<html>
 <head>
-
-  <title>Inicio</title>
-
-    <link rel="stylesheet" href="css/app.css">
-
-    @yield('header')
-
+  <title>Primera app - Anuncia</title>
+  <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
 </head>
-
 <body>
-
+<div class="container">
+  @if($currentUser)
+    Hola {{ $currentUser->name }},
+    <a href="{{ route('auth_destroy_path') }}">Salir</a>
+  @else
+    <a href="{{ route('auth_show_path') }}">Iniciar Sesión</a>
+  @endif
   @yield('content')
-
-
-  @yield('footer')
-
+</div>
 </body>
-
 </html>

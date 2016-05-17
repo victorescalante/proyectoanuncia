@@ -1,6 +1,6 @@
 <?php
 
-namespace PlatziPHP\Composers;
+namespace Anuncia\Composers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;

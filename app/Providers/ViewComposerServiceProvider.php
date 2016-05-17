@@ -4,7 +4,8 @@ namespace Anuncia\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\View\Factory;
-use PlatziPHP\Composers\CurrentUserComposer;
+use Anuncia\Composers\CurrentUserComposer;
+
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
