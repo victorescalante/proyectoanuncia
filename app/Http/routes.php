@@ -1,5 +1,6 @@
 <?php
 
+//Routes of the page
 
 Route::get('/', [
     'uses' => 'PageController@home',
@@ -16,6 +17,7 @@ Route::get('catalogo', [
     'as'   => 'catalog_show_path',
 ]);
 
+//Routes Login
 
 Route::get('auth/login', [
     'uses' => 'AuthController@index',
@@ -29,3 +31,14 @@ Route::get('auth/logout', [
     'uses' => 'AuthController@destroy',
     'as'   => 'auth_destroy_path',
 ]);
+
+//Routes of the system
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('sistema', [
+        'uses' => 'SystemController@index',
+        'as'   => 'system_home_path',
+    ]);
+
+});
