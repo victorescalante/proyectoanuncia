@@ -31,30 +31,39 @@
 @section('content')
     <div class="row">
         <div class="container">
-            <h2>Puentes</h2>
-            <p>Estos son los puentes que actualmente se encuentran habilitados en la página web.</p>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Disponibilidad</th>
-                    <th>Municipio</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Tamarindos</td>
-                    <td>Disponible</td>
-                    <td>Naucalpan</td>
-                    <td><div class="btn-group">
-                            <button type="button" class="btn btn-primary">Editar</button>
-                            <button type="button" class="btn btn-danger">Borrar</button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="col-md-10">
+                <h2>Puentes</h2>
+            </div>
+            <div class="col-md-2">
+                <a href="{{ route('footbridge_create_path') }}"><button class="btn btn-success btn-block">Nuevo</button></a>
+            </div>
+            <div class="col-md-12">
+                <p>Estos son los puentes que actualmente se encuentran habilitados en la página web.</p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Disponibilidad</th>
+                        <th>Municipio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($footbridges as $footbridge)
+                        <tr>
+                            <td>{{ $footbridge->name }}</td>
+                            <td>{{ $footbridge->availability }}</td>
+                            <td>Naucalpan</td>
+                            <td><div class="btn-group">
+                                    <a href="{{ route('footbridge_edit_path',$footbridge->id) }}"><button type="button" class="btn btn-primary">Editar</button></a>
+                                    <a href="{{ route('footbridge_question_path',$footbridge->id) }}"><button type="button" class="btn btn-danger">Borrar</button></a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

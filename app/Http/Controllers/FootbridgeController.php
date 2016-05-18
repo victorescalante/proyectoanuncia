@@ -2,9 +2,10 @@
 
 namespace Anuncia\Http\Controllers;
 
+use Anuncia\Footbridges;
 use Illuminate\Http\Request;
-
 use Anuncia\Http\Requests;
+use Illuminate\Support\Facades\Validator;
 
 class FootbridgeController extends Controller
 {
@@ -15,7 +16,9 @@ class FootbridgeController extends Controller
      */
     public function index()
     {
-        return view('footbridge.home');
+
+        $footbridges = Footbridges::all();
+        return view('footbridge.home')->with(['footbridges' => $footbridges]);
     }
 
     /**
@@ -25,7 +28,7 @@ class FootbridgeController extends Controller
      */
     public function create()
     {
-        //
+        return view('footbridge.create');
     }
 
     /**
@@ -36,7 +39,25 @@ class FootbridgeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name'         =>  'required',
+            'availability' =>  'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('footbridge_create_path')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $footbridge = new Footbridges;
+        $footbridge->name = $request->get('name');
+        $footbridge->availability = $request->get('availability');
+        $footbridge->description = $request->get('description');
+        $footbridge->save();
+
+        return redirect()->route('footbridge_home_path');
     }
 
     /**
@@ -58,7 +79,8 @@ class FootbridgeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $footbridge = Footbridges::findOrFail($id);
+        return view('footbridge.edit', ['footbridge' => $footbridge]);
     }
 
     /**
@@ -70,8 +92,22 @@ class FootbridgeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $footbridge = Footbridges::findOrFail($id);
+        $footbridge->name = $request->get('name');
+        $footbridge->availability = $request->get('availability');
+        $footbridge->description = $request->get('description');
+        $footbridge->save();
+
+        return redirect()->route('footbridge_home_path');
     }
+    
+    
+    public function question_destroy($id)
+    {
+        $footbridge = Footbridges::findOrFail($id);
+        return view('footbridge.delete',['footbridge' => $footbridge]);
+    }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -81,6 +117,10 @@ class FootbridgeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $footbridge = Footbridges::findOrFail($id);
+        $footbridge->delete();
+
+        return redirect()->route('footbridge_home_path');
+
     }
 }

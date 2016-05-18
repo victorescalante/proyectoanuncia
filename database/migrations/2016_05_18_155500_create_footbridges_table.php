@@ -15,7 +15,7 @@ class CreateFootbridgesTable extends Migration
         Schema::create('footbridges', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('availability');
+            $table->string('availability')->
             $table->string('description');
             $table->string('order');
             $table->string('latitude');

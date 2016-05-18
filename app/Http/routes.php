@@ -46,4 +46,34 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'footbridge_home_path',
     ]);
 
+    Route::get('sistema/puentes/create', [
+        'uses' => 'FootbridgeController@create',
+        'as'   => 'footbridge_create_path',
+    ]);
+
+    Route::post('sistema/puentes/create', [
+        'uses' => 'FootbridgeController@store',
+        'as'   => 'footbridge_store_path',
+    ]);
+
+    Route::get('sistema/puentes/{id}/edit', [
+        'uses' => 'FootbridgeController@edit',
+        'as'   => 'footbridge_edit_path',
+    ]);
+
+    Route::patch('sistema/puentes/{id}/edit', [
+        'uses' => 'FootbridgeController@update',
+        'as'   => 'footbridge_patch_path',
+    ]);
+
+    Route::get('sistema/puentes/{id}/delete', [
+        'uses' => 'FootbridgeController@question_destroy',
+        'as'   => 'footbridge_question_path',
+    ]);
+
+    Route::delete('sistema/puentes/{id}/delete', [
+        'uses' => 'FootbridgeController@destroy',
+        'as'   => 'footbridge_delete_path',
+    ]);
+
 });
