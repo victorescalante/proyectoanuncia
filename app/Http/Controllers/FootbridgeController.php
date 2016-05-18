@@ -55,6 +55,9 @@ class FootbridgeController extends Controller
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
         $footbridge->description = $request->get('description');
+        $footbridge->order = $request->get('order');
+        $footbridge->latitude = $request->get('latitude');
+        $footbridge->length = $request->get('length');
         $footbridge->save();
 
         return redirect()->route('footbridge_home_path');
@@ -96,6 +99,9 @@ class FootbridgeController extends Controller
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
         $footbridge->description = $request->get('description');
+        $footbridge->order = $request->get('order');
+        $footbridge->latitude = $request->get('latitude');
+        $footbridge->length = $request->get('length');
         $footbridge->save();
 
         return redirect()->route('footbridge_home_path');

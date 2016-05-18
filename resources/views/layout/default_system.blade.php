@@ -7,9 +7,11 @@
 <body>
 
 @yield('menu')
+<div class="container">
 @yield('content')
 
 @yield('footer')
+</div>
 <script src="js/bootstrap.js"></script>
 </body>
 </html>
