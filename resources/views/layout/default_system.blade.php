@@ -5,8 +5,11 @@
     @yield('header')
 </head>
 <body>
+
+@yield('menu')
 @yield('content')
 
 @yield('footer')
+<script src="js/bootstrap.js"></script>
 </body>
 </html>

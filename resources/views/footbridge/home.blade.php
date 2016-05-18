@@ -1,6 +1,6 @@
 @extends('layout.default_system')
 
-    @section('menu')
+@section('menu')
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -31,31 +31,31 @@
 @section('content')
     <div class="row">
         <div class="container">
-            <div class="jumbotron">
-
-                <h2>Puedes realizar las siguientes operaciones</h2>
-                <hr>
-                <h4>Puentes</h4>
-                <div class="list-group">
-                    <a href="{{ route('footbridge_home_path') }}" class="list-group-item active">
-                        Consulta disponibilidad
-                    </a>
-                    <a href="#b" class="list-group-item">Alta de puente</a>
-                    <a href="#c" class="list-group-item">Genera Reporte</a>
-                </div>
-
-                <hr>
-                <h4>Usuarios</h4>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        Consulta de usuarios
-                    </a>
-                    <a href="#b" class="list-group-item">Alta de usuarios</a>
-                    <a href="#c" class="list-group-item">Genera Reporte</a>
-                </div>
-
-                </div>
-            </div>
+            <h2>Puentes</h2>
+            <p>Estos son los puentes que actualmente se encuentran habilitados en la página web.</p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Disponibilidad</th>
+                    <th>Municipio</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tamarindos</td>
+                    <td>Disponible</td>
+                    <td>Naucalpan</td>
+                    <td><div class="btn-group">
+                            <button type="button" class="btn btn-primary">Editar</button>
+                            <button type="button" class="btn btn-danger">Borrar</button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection
 

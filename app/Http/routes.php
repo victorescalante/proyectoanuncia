@@ -41,4 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'system_home_path',
     ]);
 
+    Route::get('sistema/puentes', [
+        'uses' => 'FootbridgeController@index',
+        'as'   => 'footbridge_home_path',
+    ]);
+
 });
