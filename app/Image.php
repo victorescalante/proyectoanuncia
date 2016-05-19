@@ -8,5 +8,11 @@ class Image extends Model
 {
     protected $table = 'images';
 
-    protected $fillable = array('name', 'url','footbridges_id');
+    protected $fillable = array('name', 'url','footbridge_id');
+
+    public function footbridges(){
+
+        return $this->belongsTo(Footbridges::class,'footbridge_id');
+
+    }
 }

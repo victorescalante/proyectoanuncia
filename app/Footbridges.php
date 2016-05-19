@@ -14,4 +14,9 @@ class Footbridges extends Model
 
     protected $fillable = array('name', 'availability');
 
+    public function images(){
+
+        return $this->hasMany(Image::class,'footbridge_id');
+    }
+
 }

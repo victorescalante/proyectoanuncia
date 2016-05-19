@@ -20,7 +20,6 @@ class CreateFootbridgesTable extends Migration
             $table->string('order');
             $table->string('latitude');
             $table->string('length');
-            $table->string('url');
             $table->timestamps();
         });
     }

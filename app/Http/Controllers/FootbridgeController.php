@@ -3,6 +3,7 @@
 namespace Anuncia\Http\Controllers;
 
 use Anuncia\Footbridges;
+use Anuncia\Image;
 use Illuminate\Http\Request;
 use Anuncia\Http\Requests;
 use Illuminate\Support\Facades\File;
@@ -44,6 +45,7 @@ class FootbridgeController extends Controller
         $validator = Validator::make($request->all(), [
             'name'         =>  'required',
             'availability' =>  'required',
+            'url'          =>  'mimes:jpeg,png',
         ]);
 
         if ($validator->fails()) {
@@ -53,23 +55,31 @@ class FootbridgeController extends Controller
                 ->withInput();
         }
 
-        //Upload file img
-        $file = $request->file('url');
-        $name = $file->getClientOriginalName();;
-
-
-        Storage::disk('footbridges')->put($name,File::get($file));
-
-
-        $footbridge = new Footbridges;
+        $footbridge = new Footbridges();
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
         $footbridge->description = $request->get('description');
         $footbridge->order = $request->get('order');
         $footbridge->latitude = $request->get('latitude');
         $footbridge->length = $request->get('length');
-        $footbridge->url = $name;
         $footbridge->save();
+
+        //Upload file img - if exists value in request
+        if(!empty($request->file('url'))){
+            $file = $request->file('url');
+            $name = $file->getClientOriginalName();
+            $i=1;
+            while(file_exists(storage_path('app/footbridges/'.$name))){
+                $name= $i.$name; $i++;
+            }
+            Storage::disk('footbridges')->put($name,File::get($file));
+            $image = new Image();
+            $image->name = $name;
+            $image->url = $name;
+            $image->footbridge_id = $footbridge->id;
+            $image->save();
+        }
+
 
         return redirect()->route('footbridge_home_path');
     }
@@ -135,6 +145,11 @@ class FootbridgeController extends Controller
     public function destroy($id)
     {
         $footbridge = Footbridges::findOrFail($id);
+        $footbridge_images = Footbridges::findOrFail($id)->images;
+        foreach($footbridge_images as $footbridge_image){
+            $name = $footbridge_image->name;
+            Storage::disk('footbridges')->delete($name);
+        }
         $footbridge->delete();
 
         return redirect()->route('footbridge_home_path');
