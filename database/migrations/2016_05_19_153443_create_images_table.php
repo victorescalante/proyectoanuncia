@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFootbridgesTable extends Migration
+class CreateImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class CreateFootbridgesTable extends Migration
      */
     public function up()
     {
-        Schema::create('footbridges', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('footbridges_id');
             $table->string('name');
-            $table->string('availability');
-            $table->string('description');
-            $table->string('order');
-            $table->string('latitude');
-            $table->string('length');
             $table->string('url');
+            $table->integer('order');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateFootbridgesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('footbridges');
+        Schema::drop('images');
     }
 }

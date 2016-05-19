@@ -5,6 +5,8 @@ namespace Anuncia\Http\Controllers;
 use Anuncia\Footbridges;
 use Illuminate\Http\Request;
 use Anuncia\Http\Requests;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class FootbridgeController extends Controller
@@ -51,6 +53,14 @@ class FootbridgeController extends Controller
                 ->withInput();
         }
 
+        //Upload file img
+        $file = $request->file('url');
+        $name = $file->getClientOriginalName();;
+
+
+        Storage::disk('footbridges')->put($name,File::get($file));
+
+
         $footbridge = new Footbridges;
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
@@ -58,6 +68,7 @@ class FootbridgeController extends Controller
         $footbridge->order = $request->get('order');
         $footbridge->latitude = $request->get('latitude');
         $footbridge->length = $request->get('length');
+        $footbridge->url = $name;
         $footbridge->save();
 
         return redirect()->route('footbridge_home_path');
