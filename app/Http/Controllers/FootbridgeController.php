@@ -45,7 +45,6 @@ class FootbridgeController extends Controller
         $validator = Validator::make($request->all(), [
             'name'         =>  'required',
             'availability' =>  'required',
-            'url'          =>  'mimes:jpeg,png',
         ]);
 
         if ($validator->fails()) {
@@ -66,18 +65,25 @@ class FootbridgeController extends Controller
 
         //Upload file img - if exists value in request
         if(!empty($request->file('url'))){
-            $file = $request->file('url');
-            $name = $file->getClientOriginalName();
-            $i=1;
-            while(file_exists(storage_path('app/footbridges/'.$name))){
-                $name= $i.$name; $i++;
+            $files = $request->file('url');
+            $order_img = 1;
+            foreach ($files as $file) {
+                $name = $file->getClientOriginalName();
+                $count_number_imgs=1;
+                while(file_exists(storage_path('app/footbridges/'.$name))){
+                    $name= $count_number_imgs.$name; $count_number_imgs++;
+                }
+
+                Storage::disk('footbridges')->put($name,File::get($file));
+                $image = new Image();
+                $image->name = $name;
+                $image->order = $order_img;
+                $image->url = $name;
+                $image->footbridge_id = $footbridge->id;
+                $image->save();
+                $order_img++;
             }
-            Storage::disk('footbridges')->put($name,File::get($file));
-            $image = new Image();
-            $image->name = $name;
-            $image->url = $name;
-            $image->footbridge_id = $footbridge->id;
-            $image->save();
+
         }
 
 
@@ -149,6 +155,7 @@ class FootbridgeController extends Controller
         foreach($footbridge_images as $footbridge_image){
             $name = $footbridge_image->name;
             Storage::disk('footbridges')->delete($name);
+            $footbridge_image->delete();
         }
         $footbridge->delete();
 
