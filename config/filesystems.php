@@ -54,6 +54,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'footbridges' => [
+            'driver'     => 'local',
+            'root'       => storage_path('app/footbridges'),
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key'    => 'your-key',
