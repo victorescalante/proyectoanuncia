@@ -68,6 +68,12 @@
             <input class="form-control" type="text" name="length" value="{{ $footbridge->length }}">
         </div>
         <div class="col-md-12">
+            <div class="form-group">
+                <label for="url">Subir archivo</label>
+                <input type="file" class="form-control" name="url" value="{{ $footbridge->url }}" >
+            </div>
+        </div>
+        <div class="col-md-12">
             <hr>
             <input class="btn btn-success center-block" type="submit" value="Actualizar">
         </div>

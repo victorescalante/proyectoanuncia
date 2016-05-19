@@ -29,10 +29,11 @@
 @endsection
 
 @section('content')
+    
 
             <h1>Alta de Puente Peatonal</h1>
             @include('partials.errors')
-            <form action="{{ route('footbridge_store_path') }}" method="post">
+            <form action="{{ route('footbridge_store_path') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="col-md-6">
                     <label for="name">Nombre</label>
@@ -60,6 +61,12 @@
                 <div class="col-md-4">
                     <label for="length">Longitud</label>
                     <input class="form-control" type="text" name="length" value="{{ old('length') }}">
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="url">Subir archivo</label>
+                        <input type="file" class="form-control" name="url" >
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <hr>
