@@ -54,6 +54,7 @@ class FootbridgeController extends Controller
                 ->withInput();
         }
 
+
         $footbridge = new Footbridges();
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
@@ -63,13 +64,16 @@ class FootbridgeController extends Controller
         $footbridge->length = $request->get('length');
         $footbridge->save();
 
-        //Upload file img - if exists value in request
-        if(!empty($request->file('url'))){
+        Footbridges::create($request->all());
+
+        $files_images = $request->file('url');
+
+        if($files_images[0]!=NULL){
             $files = $request->file('url');
             $order_img = 1;
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
-                $count_number_imgs=1;
+                $count_number_imgs = 1;
                 while(file_exists(storage_path('app/footbridges/'.$name))){
                     $name= $count_number_imgs.$name; $count_number_imgs++;
                 }
@@ -83,9 +87,7 @@ class FootbridgeController extends Controller
                 $image->save();
                 $order_img++;
             }
-
         }
-
 
         return redirect()->route('footbridge_home_path');
     }
@@ -111,6 +113,9 @@ class FootbridgeController extends Controller
     {
         $footbridge = Footbridges::findOrFail($id);
         return view('footbridge.edit', ['footbridge' => $footbridge]);
+
+
+
     }
 
     /**

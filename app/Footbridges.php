@@ -12,7 +12,9 @@ class Footbridges extends Model
      */
     protected $table = 'footbridges';
 
-    protected $fillable = array('name', 'availability');
+    protected $fillable = [
+        'name','availability'
+    ];
 
     public function images(){
 

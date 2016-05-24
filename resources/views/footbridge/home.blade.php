@@ -37,6 +37,7 @@
             <div class="col-md-2">
                 <a href="{{ route('footbridge_create_path') }}"><button class="btn btn-success btn-block">Nuevo</button></a>
             </div>
+            @if(count($footbridges))
             <div class="col-md-12">
                 <p>Estos son los puentes que actualmente se encuentran habilitados en la página web.</p>
                 <table class="table table-striped">
@@ -64,6 +65,11 @@
                     </tbody>
                 </table>
             </div>
+            @else
+                <div class="col-md-12">
+                    <h2 class="text-primary text-center">Aún no haz dado de alta un puente</h2>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

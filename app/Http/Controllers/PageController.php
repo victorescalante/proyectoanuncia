@@ -25,6 +25,7 @@ class PageController extends Controller
     }
 
     /**
+     * This route is new
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function catalog()
