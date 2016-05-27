@@ -2,6 +2,7 @@
 
 @section('header')
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
 @endsection
 
 @section('menu')
@@ -37,7 +38,7 @@
 
             <h1>Alta de Puente Peatonal</h1>
             @include('partials.errors')
-            <form action="{{ route('footbridge_store_path') }}" method="post" id="miform" enctype="multipart/form-data">
+            <form action="{{ route('footbridge_store_path') }}" method="post" id="my-awesome-dropzone" class="dropzone" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="col-md-7">
                     <div class="col-md-6">
@@ -84,7 +85,8 @@
                                 <td class="text-center text-primary">1</td>
                                 <td>
                                     <div class="form-group col-lg-12">
-                                        <input type="file" class="form-control"name="url[]" />
+                                        <a href="#" class="btnImages btn btn-success">Seleccionar imagenes</a>
+                                        <input style="display:none" type="file" class="form-control"name="url[]" multiple accept="image/*"/>
                                     </div>
                                 </td>
                             </tr>
@@ -114,6 +116,15 @@
             });
 
         });
+
+        $(document).ready(function () {
+            $('.btnImages').on('click', function () {
+                event.preventDefault();
+                $("input[type='file']").trigger('click');
+            });
+        });
+
+
     </script>
 
 @endsection

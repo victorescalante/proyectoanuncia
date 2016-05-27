@@ -2,6 +2,10 @@
 
 //Routes of the page
 
+
+
+
+
 Route::get('/', [
     'uses' => 'PageController@home',
     'as'   => 'home_show_path',
@@ -75,5 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'FootbridgeController@destroy',
         'as'   => 'footbridge_delete_path',
     ]);
+
+    Route::get('sistema/puentes/prueba','FootbridgeController@prueba');
 
 });

@@ -2,7 +2,7 @@
 
 namespace Anuncia\Http\Controllers;
 
-use Anuncia\Footbridges;
+use Anuncia\Footbridge;
 use Anuncia\Image;
 use Illuminate\Http\Request;
 use Anuncia\Http\Requests;
@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class FootbridgeController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +22,7 @@ class FootbridgeController extends Controller
     public function index()
     {
 
-        $footbridges = Footbridges::all();
+        $footbridges = Footbridge::all();
         return view('footbridge.home')->with(['footbridges' => $footbridges]);
     }
 
@@ -55,7 +57,7 @@ class FootbridgeController extends Controller
         }
 
 
-        $footbridge = new Footbridges();
+        $footbridge = new Footbridge();
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
         $footbridge->description = $request->get('description');
@@ -64,7 +66,6 @@ class FootbridgeController extends Controller
         $footbridge->length = $request->get('length');
         $footbridge->save();
 
-        Footbridges::create($request->all());
 
         $files_images = $request->file('url');
 
@@ -111,7 +112,7 @@ class FootbridgeController extends Controller
      */
     public function edit($id)
     {
-        $footbridge = Footbridges::findOrFail($id);
+        $footbridge = Footbridge::findOrFail($id);
         return view('footbridge.edit', ['footbridge' => $footbridge]);
 
 
@@ -127,7 +128,7 @@ class FootbridgeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $footbridge = Footbridges::findOrFail($id);
+        $footbridge = Footbridge::findOrFail($id);
         $footbridge->name = $request->get('name');
         $footbridge->availability = $request->get('availability');
         $footbridge->description = $request->get('description');
@@ -142,7 +143,7 @@ class FootbridgeController extends Controller
     
     public function question_destroy($id)
     {
-        $footbridge = Footbridges::findOrFail($id);
+        $footbridge = Footbridge::findOrFail($id);
         return view('footbridge.delete',['footbridge' => $footbridge]);
     }
     
@@ -155,8 +156,8 @@ class FootbridgeController extends Controller
      */
     public function destroy($id)
     {
-        $footbridge = Footbridges::findOrFail($id);
-        $footbridge_images = Footbridges::findOrFail($id)->images;
+        $footbridge = Footbridge::findOrFail($id);
+        $footbridge_images = Footbridge::findOrFail($id)->images;
         foreach($footbridge_images as $footbridge_image){
             $name = $footbridge_image->name;
             Storage::disk('footbridges')->delete($name);
@@ -166,5 +167,9 @@ class FootbridgeController extends Controller
 
         return redirect()->route('footbridge_home_path');
 
+    }
+
+    public function prueba(){
+        return view('footbridge.prueba');
     }
 }

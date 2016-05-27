@@ -4,7 +4,7 @@ namespace Anuncia;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Footbridges extends Model
+class Footbridge extends Model
 {
     /**
      * Database used by this model
@@ -20,5 +20,4 @@ class Footbridges extends Model
 
         return $this->hasMany(Image::class,'footbridge_id');
     }
-
 }

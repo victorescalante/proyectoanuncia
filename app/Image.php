@@ -10,7 +10,7 @@ class Image extends Model
 
     protected $fillable = array('name', 'url','footbridge_id');
 
-    public function footbridges(){
+    public function footbridge(){
 
         return $this->belongsTo(Footbridges::class,'footbridge_id');
 
