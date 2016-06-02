@@ -13,11 +13,18 @@ class Footbridge extends Model
     protected $table = 'footbridges';
 
     protected $fillable = [
-        'name','availability'
+        'name', 'availability','municipality_id'
     ];
 
-    public function images(){
+    public function images()
+    {
 
-        return $this->hasMany(Image::class,'footbridge_id');
+        return $this->hasMany(Image::class, 'footbridge_id');
+    }
+
+    public function municipality()
+    {
+
+        return $this->belongsTo(Municipality::class, 'municipality_id');
     }
 }

@@ -11,6 +11,12 @@ Route::get('/', [
     'as'   => 'home_show_path',
 ]);
 
+
+Route::get('puentes/{id}/show', [
+    'uses' => 'FootbridgeController@show',
+    'as'   => 'footbridge_show_path',
+]);
+
 Route::get('contacto', [
     'uses' => 'PageController@contact',
     'as'   => 'contact_show_path',
@@ -60,6 +66,12 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'footbridge_store_path',
     ]);
 
+    Route::post('sistema/puentes/create/select/', [
+        'uses' => 'FootbridgeController@select',
+        'as'   => 'list_municipalities',
+    ]);
+
+
     Route::get('sistema/puentes/{id}/edit', [
         'uses' => 'FootbridgeController@edit',
         'as'   => 'footbridge_edit_path',
@@ -80,6 +92,6 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'footbridge_delete_path',
     ]);
 
-    Route::get('sistema/puentes/prueba','FootbridgeController@prueba');
+
 
 });

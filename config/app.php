@@ -156,6 +156,7 @@ return [
         Anuncia\Providers\EventServiceProvider::class,
         Anuncia\Providers\RouteServiceProvider::class,
         Anuncia\Providers\ViewComposerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -202,6 +203,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

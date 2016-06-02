@@ -4,8 +4,11 @@ namespace Anuncia\Http\Controllers;
 
 use Anuncia\Footbridge;
 use Anuncia\Image;
+use Anuncia\Municipality;
+use Anuncia\State;
 use Illuminate\Http\Request;
 use Anuncia\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -22,7 +25,11 @@ class FootbridgeController extends Controller
     public function index()
     {
 
-        $footbridges = Footbridge::all();
+        // $footbridges = Footbridge::paginate(10);
+        // $footbridges->load('municipality');
+
+        $footbridges = Footbridge::with('municipality')->paginate(10);
+
         return view('footbridge.home')->with(['footbridges' => $footbridges]);
     }
 
@@ -33,7 +40,10 @@ class FootbridgeController extends Controller
      */
     public function create()
     {
-        return view('footbridge.create');
+        $states = State::all();
+        return view('footbridge.create')->with([
+            'states' => $states,
+        ]);
     }
 
     /**
@@ -58,19 +68,32 @@ class FootbridgeController extends Controller
 
 
         $footbridge = new Footbridge();
-        $footbridge->name = $request->get('name');
-        $footbridge->availability = $request->get('availability');
-        $footbridge->description = $request->get('description');
-        $footbridge->order = $request->get('order');
-        $footbridge->latitude = $request->get('latitude');
-        $footbridge->length = $request->get('length');
+        $footbridge->name            = $request->get('name');
+        $footbridge->availability    = $request->get('availability');
+        $footbridge->description     = $request->get('description');
+        $footbridge->position        = $request->get('position');
+        $footbridge->views           = $request->get('views');
+        $footbridge->frontal         = $request->get('frontal');
+        $footbridge->crusade         = $request->get('crusade');
+        $footbridge->mega            = $request->get('mega');
+        $footbridge->side            = $request->get('side');
+        $footbridge->street          = $request->get('street');
+        $footbridge->reference_c     = $request->get('reference_c');
+        $footbridge->reference_n     = $request->get('reference_n');
+        $footbridge->reference_s     = $request->get('reference_s');
+        $footbridge->reference_o     = $request->get('reference_o');
+        $footbridge->reference_p     = $request->get('reference_p');
+        $footbridge->municipality_id = $request->get('municipality_id');
+        $footbridge->order           = $request->get('order');
+        $footbridge->latitude        = $request->get('latitude');
+        $footbridge->length          = $request->get('length');
         $footbridge->save();
 
 
         $files_images = $request->file('url');
 
-        if($files_images[0]!=NULL){
-            $files = $request->file('url');
+        if( $files_images[0] != NULL ){
+            $files     = $request->file('url');
             $order_img = 1;
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
@@ -81,9 +104,9 @@ class FootbridgeController extends Controller
 
                 Storage::disk('footbridges')->put($name,File::get($file));
                 $image = new Image();
-                $image->name = $name;
-                $image->order = $order_img;
-                $image->url = $name;
+                $image->name          = $name;
+                $image->order         = $order_img;
+                $image->url           = $name;
                 $image->footbridge_id = $footbridge->id;
                 $image->save();
                 $order_img++;
@@ -101,7 +124,7 @@ class FootbridgeController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('footbridge.show');
     }
 
     /**
@@ -113,7 +136,14 @@ class FootbridgeController extends Controller
     public function edit($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        return view('footbridge.edit', ['footbridge' => $footbridge]);
+        $states = State::all();
+        $municipalities = DB::table('municipalities')->where('state_id','=',$footbridge->municipality->state->id)->get();
+        //dd($municipalities);
+        return view('footbridge.edit', [
+            'footbridge' => $footbridge,
+            'states'     => $states,
+            'municipalities' => $municipalities,
+        ]);
 
 
 
@@ -128,16 +158,30 @@ class FootbridgeController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $footbridge = Footbridge::findOrFail($id);
-        $footbridge->name = $request->get('name');
-        $footbridge->availability = $request->get('availability');
-        $footbridge->description = $request->get('description');
-        $footbridge->order = $request->get('order');
-        $footbridge->latitude = $request->get('latitude');
-        $footbridge->length = $request->get('length');
+        $footbridge->name            = $request->get('name');
+        $footbridge->availability    = $request->get('availability');
+        $footbridge->description     = $request->get('description');
+        $footbridge->position        = $request->get('position');
+        $footbridge->views           = $request->get('views');
+        $footbridge->frontal         = $request->get('frontal');
+        $footbridge->crusade         = $request->get('crusade');
+        $footbridge->mega            = $request->get('mega');
+        $footbridge->side            = $request->get('side');
+        $footbridge->street          = $request->get('street');
+        $footbridge->reference_c     = $request->get('reference_c');
+        $footbridge->reference_n     = $request->get('reference_n');
+        $footbridge->reference_s     = $request->get('reference_s');
+        $footbridge->reference_o     = $request->get('reference_o');
+        $footbridge->reference_p     = $request->get('reference_p');
+        $footbridge->municipality_id = $request->get('municipality_id');
+        $footbridge->order           = $request->get('order');
+        $footbridge->latitude        = $request->get('latitude');
+        $footbridge->length          = $request->get('length');
         $footbridge->save();
 
-        return redirect()->route('footbridge_home_path');
+        return redirect($request->get('url_home_catalog'));
     }
     
     
@@ -168,8 +212,15 @@ class FootbridgeController extends Controller
         return redirect()->route('footbridge_home_path');
 
     }
+    
 
-    public function prueba(){
-        return view('footbridge.prueba');
+    public function select(Request $request){
+
+        $id = $request->get('id');
+        $state = State::find($id);
+        $municipalities = $state->municipalities;
+        return view('footbridge.select')->with([
+            'municipalities' => $municipalities,
+        ]);
     }
 }

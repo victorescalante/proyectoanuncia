@@ -37,7 +37,7 @@
                 <br>
                 <div class="text-center">
                     <div class="btn-group ">
-                        <a href="{{ route('footbridge_home_path') }}"><button class="btn btn-default" type="button">Cancelar</button></a>
+                        <a class="btn btn-default" href="{{ route('footbridge_home_path') }}">Cancelar</a>
 
                         <button class="btn btn-success" type="submit">Eliminar</button>
                     </div>

@@ -5,6 +5,7 @@ namespace Anuncia\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Anuncia\Http\Requests;
+use Illuminate\Support\Facades\Redirect;
 
 class PageController extends Controller
 {
@@ -33,3 +34,5 @@ class PageController extends Controller
         return view('page.catalog');
     }
 }
+
+

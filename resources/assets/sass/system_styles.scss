@@ -1,0 +1,39 @@
+/*
+Styles for system anuncia
+*/
+
+/**
+* The next class was create for the new format in the table  view:footbridges/home.blade.php
+**/
+table
+{
+  &.formatnew {
+    & tr {
+      &:nth-of-type(2n+2){
+        background-color: rgba(0, 220, 255, 0.13);
+      }
+      & td {
+        vertical-align: middle;
+        &:nth-of-type(2){
+          &.availability{
+            color: #5CB85C;
+          }
+        }
+      }
+    }
+  }
+}
+
+.panel-group{
+  &.panel-form-green{
+    & .panel{
+    &.panel-default{
+      & .panel-heading{
+          background-color: #00cc99;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
