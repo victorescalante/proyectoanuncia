@@ -5733,6 +5733,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+/*@import "node_modules/bootstrap-sass/assets/fonts/bootstrap";*/
 /*
 Styles for system anuncia
 */
@@ -5748,7 +5749,11 @@ table.formatnew tr td {
     color: #5CB85C; }
 
 .panel-group.panel-form-green .panel.panel-default .panel-heading {
-  background-color: #00cc99;
+  background-color: #B3241C;
   color: white; }
+  .panel-group.panel-form-green .panel.panel-default .panel-heading .panel-title {
+    font-weight: lighter;
+    text-decoration: none;
+    letter-spacing: 2px; }
 
 /*# sourceMappingURL=app.css.map */

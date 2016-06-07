@@ -66,7 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'footbridge_store_path',
     ]);
 
-    Route::post('sistema/puentes/create/select/', [
+    Route::get('sistema/puentes/create/select/', [
         'uses' => 'FootbridgeController@select',
         'as'   => 'list_municipalities',
     ]);
@@ -90,6 +90,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('sistema/puentes/{id}/delete', [
         'uses' => 'FootbridgeController@destroy',
         'as'   => 'footbridge_delete_path',
+    ]);
+
+    Route::get('sistema/images/store', [
+        'uses' => 'ImageController@store',
+        'as'   => 'images_store_path',
     ]);
 
 

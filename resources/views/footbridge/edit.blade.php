@@ -1,8 +1,7 @@
 @extends('layout.default_system')
 
 @section('header')
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="{{ url("js/validator.js") }}"></script>
+
 
 @endsection
 
@@ -236,35 +235,6 @@
 
 @section('footer')
 
-    <script type="text/javascript">
-
-
-        $(document).ready(function ()
-        {
-            $('.btnImages').on('click', function () {
-                event.preventDefault();
-                $("input[type='file']").trigger('click');
-            });
-        });
-
-
-        function recargarS2(id)
-        {
-            $('#municipalities').html('<option value="">Cargando datos ..</option>');
-
-            $.ajax({
-                method: "POST",
-                url: '{{ route('list_municipalities') }}',
-                data: {
-                    id: id,_token: '{{ csrf_token() }}'
-                },
-                success: function(resp){
-                    $('#municipalities').html(resp)
-                }
-            });
-        }
-
-
-    </script>
+    <script src="{{ url("js/validator.js") }}"></script>
 
 @endsection

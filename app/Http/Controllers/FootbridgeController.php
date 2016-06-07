@@ -7,7 +7,6 @@ use Anuncia\Image;
 use Anuncia\Municipality;
 use Anuncia\State;
 use Illuminate\Http\Request;
-use Anuncia\Http\Requests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -90,26 +89,27 @@ class FootbridgeController extends Controller
         $footbridge->save();
 
 
-        $files_images = $request->file('url');
 
-        if( $files_images[0] != NULL ){
+        if($request->hasFile('url')){
+
+            $array_order = $request->get('order_img');
             $files     = $request->file('url');
-            $order_img = 1;
+            $order     = 0;
             foreach ($files as $file) {
                 $name = $file->getClientOriginalName();
                 $count_number_imgs = 1;
                 while(file_exists(storage_path('app/footbridges/'.$name))){
-                    $name= $count_number_imgs.$name; $count_number_imgs++;
+                    $name= $count_number_imgs.$name;
+                    $count_number_imgs++;
                 }
-
                 Storage::disk('footbridges')->put($name,File::get($file));
                 $image = new Image();
                 $image->name          = $name;
-                $image->order         = $order_img;
-                $image->url           = $name;
+                $image->order         = $array_order[$order];
+                $image->url           = storage_path('app/footbridges/'.$name);
                 $image->footbridge_id = $footbridge->id;
                 $image->save();
-                $order_img++;
+                $order++;
             }
         }
 

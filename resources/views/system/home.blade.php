@@ -43,19 +43,8 @@
                     <a href="#b" class="list-group-item">Alta de puente</a>
                     <a href="#c" class="list-group-item">Genera Reporte</a>
                 </div>
-
-                <hr>
-                <h4>Usuarios</h4>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        Consulta de usuarios
-                    </a>
-                    <a href="#b" class="list-group-item">Alta de usuarios</a>
-                    <a href="#c" class="list-group-item">Genera Reporte</a>
-                </div>
-
-                </div>
             </div>
+        </div>
     </div>
 @endsection
 

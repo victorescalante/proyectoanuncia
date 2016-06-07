@@ -29,8 +29,13 @@ table
     & .panel{
     &.panel-default{
       & .panel-heading{
-          background-color: #00cc99;
+          background-color: #B3241C;
           color: white;
+          & .panel-title{
+            font-weight: lighter;
+            text-decoration: none;
+            letter-spacing: 2px;
+          }
         }
       }
     }
