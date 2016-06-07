@@ -237,24 +237,34 @@
                                 </div>
                                 <div id="contenedor" class="col-md-12 form-group">
                                     <div class="row">
-                                        <hr>
-                                        <a href="#" class="eliminar">&times;</a>
                                         <div class="col-md-12">
+                                            <hr>
                                             <h5 class="text-primary">Nueva imagen</h5>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label>Selecciona Imagen</label>
-                                            <input type="file" class="form-control" name="url[]" accept="image/jpeg,image/png">
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <label>Selecciona Imagen</label>
+                                                    <input type="file" class="form-control" name="url[]" accept="image/jpeg,image/png">
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Orden en el que se mostrará</label>
+                                                    <input type="number" class="form-control" name="order_img[]" value="1">
+                                                </div>
+                                            </div>
                                         </div>
+                                        <div class="col-md-2 text-center">
+                                            <a href="#" class="eliminar"><img  width="40px" src="{{ url('img/system/delete_1.png') }}"></a>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="row">
                                         <div class="col-md-8">
                                             <label>Nombre de la imagen</label>
                                             <input type="text" class="form-control" name="name_img[]">
                                         </div>
-                                        <div class="col-md-4">
-                                            <label>Orden en el que se mostrara</label>
-                                            <input type="number" class="form-control" name="order_img[]">
-                                        </div>
                                     </div>
+                                    -->
                                 </div>
                             </div>
                         </div>
@@ -263,6 +273,7 @@
             </div>
         </div>
     </div>
+        </div>
     <div class="row">
         <div class="col-md-12 text-center">
             <hr>

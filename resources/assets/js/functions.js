@@ -182,9 +182,7 @@ function initMap() {
         events(map,marker);
         map.setOptions({styles: styles});
 
-
     }
-
 
 
 }
@@ -265,16 +263,40 @@ $(document).ready(function() {
     var AddButton       = $("#agregarCampo"); //Add button ID
 
     //var x = contenedor.length; //initlal text box count
-    var x = $("#contenedor div").length + 1;
+    var x = $("#contenedor .row").length + 1;
+    console.log("x vale: "+x);
     var FieldCount = x-1; //to keep track of text box added
 
     $(AddButton).click(function (e)  //on add input button click
     {
+        console.log("x vale: "+x);
+        console.log("MAxInput vale: "+MaxInputs)
         if(x <= MaxInputs) //max input box allowed
         {
             FieldCount++; //text box added increment
             //add input box
-            $(contenedor).append('<div class="added"><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" placeholder="Texto '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
+            //$(contenedor).append('<div class="added"><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" placeholder="Texto '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
+            $(contenedor).append('<div class="row"> ' +
+                '<div class="col-md-12"> ' +
+                '<hr> ' +
+                '<h5 class="text-primary">Nueva imagen</h5> ' +
+                '</div> ' +
+                '<div class="col-md-10"> ' +
+                '<div class="row"> ' +
+                '<div class="col-md-8"> ' +
+                '<label>Selecciona Imagen</label> ' +
+                '<input type="file" class="form-control" name="url[]" accept="image/jpeg,image/png"> ' +
+                '</div> ' +
+                '<div class="col-md-4"> ' +
+                '<label>Orden en el que se mostrará</label> ' +
+                '<input type="number" class="form-control" name="order_img[]" value="'+(x-1)+'"> ' +
+                '</div> ' +
+                '</div> ' +
+                '</div> ' +
+                '<div class="col-md-2 text-center"> ' +
+                '<a href="#" class="eliminar"><img  width="40px" src="http://testone.app/img/system/delete_1.png"></a> ' +
+                '</div> ' +
+                '</div>');
             x++; //text box increment
         }
         return false;
@@ -282,7 +304,8 @@ $(document).ready(function() {
 
     $("body").on("click",".eliminar", function(e){ //user click on remove text
         if( x > 1 ) {
-            $(this).parent('div').remove(); //remove text box
+            $(this).parent('div').parent('div').remove(); //remove text box
+            //$(this).parent('div').remove(); //remove text box
             x--; //decrement textbox
         }
         return false;
