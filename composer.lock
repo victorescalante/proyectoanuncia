@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "491e3b02feaa11b12697959595834aee",
-    "content-hash": "d89ac124a7da8323d9d7beea925a782c",
+    "hash": "dce83dfc70de305467992a7f90687f92",
+    "content-hash": "6d469a7f3447b665ad0e225cb7ec32da",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -114,6 +114,41 @@
                 "preload"
             ],
             "time": "2015-11-09 22:51:51"
+        },
+        {
+            "name": "components/font-awesome",
+            "version": "4.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/components/font-awesome.git",
+                "reference": "daa3ef598620217085dcb13ad11149e89a20a925"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/components/font-awesome/zipball/daa3ef598620217085dcb13ad11149e89a20a925",
+                "reference": "daa3ef598620217085dcb13ad11149e89a20a925",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "styles": [
+                        "css/font-awesome.css"
+                    ],
+                    "files": [
+                        "css/font-awesome.min.css",
+                        "css/font-awesome.css.map",
+                        "fonts/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT",
+                "OFL-1.1"
+            ],
+            "description": "The iconic font designed for use with Twitter Bootstrap.",
+            "time": "2016-05-18 10:46:59"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

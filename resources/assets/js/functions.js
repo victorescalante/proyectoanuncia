@@ -1,3 +1,22 @@
+//Var globals
+
+// Functions for ajax
+token = $("input[name='_token']").val();
+
+function initMap(){
+
+}
+
+/*
+ $.ajaxSetup({
+ headers: {
+ 'X-CSRF-TOKEN': $("input[name='_token']").val(),
+ }
+ });
+ */
+
+
+/*
 function initMap() {
 
     var myLatLng = {lat: 19.3431244, lng: -99.4210658};
@@ -64,7 +83,7 @@ function initMap() {
             map.removeOverlay(marker);
         });
         */
-
+        /*
         google.maps.event.addListener(marker, 'click', function () {
             $positions = getLatAndLong();
             getAddress($positions);
@@ -82,6 +101,7 @@ function initMap() {
 
 
     }
+
 
 
     function events_dom() {
@@ -130,7 +150,7 @@ function initMap() {
             }
          });
          */
-
+        /*
         $.ajax({
             method: "GET",
             url: "http://maps.googleapis.com/maps/api/geocode/json?latlng="+positions,
@@ -186,45 +206,8 @@ function initMap() {
 
 
 }
-
-
-// End-code Google Maps
-
-//Start Code of the views
-
-
-$(document).ready(function ()
-{
-
-    $('.btnImages').on('click', function () {
-        event.preventDefault();
-        $("input[type='file']").trigger('click');
-    });
-
-    /*
-    $('#btnAddress').on('click', function () {
-        var address_form = $(".address").val();
-        initMap().codeAddress(address_form);
-    });
-    */
-});
-
-
-
-
-
-
-
-// Functions for ajax
-token = $("input[name='_token']").val();
-
-/*
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $("input[name='_token']").val(),
-    }
-});
 */
+
 
 
 function recargarS2(id)
@@ -252,66 +235,101 @@ function recargarS2(id)
 
 
 
-
-
-
-
-$(document).ready(function() {
+function form_btns(){
 
     var MaxInputs       = 8; //maximum input boxes allowed
     var contenedor   	= $("#contenedor"); //Input boxes wrapper ID
     var AddButton       = $("#agregarCampo"); //Add button ID
+    var clearFormImg    = $('.files').html();
 
     //var x = contenedor.length; //initlal text box count
-    var x = $("#contenedor .row").length + 1;
-    console.log("x vale: "+x);
+    var x = $("#contenedor .files").length+1;
     var FieldCount = x-1; //to keep track of text box added
-
     $(AddButton).click(function (e)  //on add input button click
     {
-        console.log("x vale: "+x);
-        console.log("MAxInput vale: "+MaxInputs)
         if(x <= MaxInputs) //max input box allowed
         {
-            FieldCount++; //text box added increment
+            FieldCount++; //div box added increment
             //add input box
-            //$(contenedor).append('<div class="added"><input type="text" name="mitexto[]" id="campo_'+ FieldCount +'" placeholder="Texto '+ FieldCount +'"/><a href="#" class="eliminar">&times;</a></div>');
-            $(contenedor).append('<div class="row"> ' +
-                '<div class="col-md-12"> ' +
-                '<hr> ' +
-                '<h5 class="text-primary">Nueva imagen</h5> ' +
-                '</div> ' +
-                '<div class="col-md-10"> ' +
-                '<div class="row"> ' +
-                '<div class="col-md-8"> ' +
-                '<label>Selecciona Imagen</label> ' +
-                '<input type="file" class="form-control" name="url[]" accept="image/jpeg,image/png"> ' +
-                '</div> ' +
-                '<div class="col-md-4"> ' +
-                '<label>Orden en el que se mostrará</label> ' +
-                '<input type="number" class="form-control" name="order_img[]" value="'+(x-1)+'"> ' +
-                '</div> ' +
-                '</div> ' +
-                '</div> ' +
-                '<div class="col-md-2 text-center"> ' +
-                '<a href="#" class="eliminar"><img  width="40px" src="http://testone.app/img/system/delete_1.png"></a> ' +
-                '</div> ' +
-                '</div>');
-            x++; //text box increment
+            var newImg = clearFormImg;
+            console.log(newImg);
+
+            $('.newImg').append(newImg);
+            console.log("Existen: "+x);
+
+            x++; //div box increment
         }
         return false;
     });
 
-    $("body").on("click",".eliminar", function(e){ //user click on remove text
-        if( x > 1 ) {
-            $(this).parent('div').parent('div').remove(); //remove text box
-            //$(this).parent('div').remove(); //remove text box
-            x--; //decrement textbox
+    $("body").on("click",".eliminar", function(event){ //user click on remove text
+        if( x > 2) {
+            var div_ant = $(this).parent('div');
+            div_ant.parent('div').remove();
+            x=x-1;
+            console.log("Despues de eliminar x vale: "+x);
         }
         return false;
     });
 
-});
+}
+
+
+function dropZone() {
+
+    function load_image() {
+        $('html').on('click','.image', function (event) {
+            $(this).next(".select_image").trigger('click');
+
+        });
+
+    }
+
+    function load_images_front(){
+
+
+        //$("input[type='file']").on('change',function (event) {
+        $("html").on('change','.select_image',function (event) {
+
+            var fileImg =  $(this);
+
+            var filesSelected = fileImg[0].files[0];
+
+            if (filesSelected) {
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+                    //fileImg.parents('.contentInput').find('.imgTest img').attr('src', srcData);
+                    fileImg.parent('.file').addClass('dragActive');
+
+                    fileImg.parent('.file').find('.image').css({
+                       'background': 'url('+srcData+')',
+                    });
+
+                }
+
+                fileReader.readAsDataURL(filesSelected);
+
+
+            }
+
+
+
+        });
+
+
+    }
+
+
+    load_image();
+    load_images_front();
+
+}
+
 
 
 
@@ -319,14 +337,58 @@ $(document).ready(function() {
 //Validate edit
 
 
-    $(document).ready(function ()
-    {
-        $('.btnImages').on('click', function () {
-            event.preventDefault();
-            $("input[type='file']").trigger('click');
-        });
+function btn_images(){
+    $('.btnImages').on('click', function () {
+        event.preventDefault();
+        $("input[type='file']").trigger('click');
     });
+}
 
 
 
+//----------------------------------
+//----------------------------------
+//----------------------------------
+function always(){
 
+}
+function oneTime(){
+
+    dropZone();
+    //btn_images();
+    //form_btns();
+
+}
+function lastTime(){
+}
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+$(document).ready(function() {
+    //-- No MOD----------------------------------//
+    always();
+    window.addEventListener("resize", always);
+    //-- No MOD----------------------------------//
+    oneTime();
+});
+//----------------------------------------------------------//
+$(window).load(function() {
+    //-- No MOD----------------------------------//
+    always();
+    window.addEventListener("resize", always);
+    //-- No MOD----------------------------------//
+    lastTime();
+});
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//

@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "fzaninotto/faker": "^1.6",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "barryvdh/laravel-debugbar": "^2.2",
+        "components/font-awesome": "^4.6"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

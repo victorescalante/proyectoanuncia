@@ -1,5 +1,5 @@
 @extends('layout.default_system')
-    <link rel="stylesheet" href="{{ url("css/dropzone.css")  }}">
+
 @section('header')
 
     <style>
@@ -56,7 +56,7 @@
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Datos generales</a>
                         </h4>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse in">
+                    <div id="collapse1" class="panel-collapse collapse ">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="form-group has-feedback col-md-6">
@@ -87,7 +87,7 @@
                                 Ubicación del puente</a>
                         </h4>
                     </div>
-                    <div id="collapse3" class="panel-collapse collapse in">
+                    <div id="collapse3" class="panel-collapse collapse ">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-offset-2 col-md-4">
@@ -223,7 +223,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default">
+                <div class="panel panel-default in">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Subir imagenes</a>
@@ -232,39 +232,16 @@
                     <div id="collapse4" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 form-group">
                                     <a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
                                 </div>
-                                <div id="contenedor" class="col-md-12 form-group">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <hr>
-                                            <h5 class="text-primary">Nueva imagen</h5>
+                                <div class="container_images col-md-12 form-group">
+                                    <div class="file">
+                                        <div class="image">
+                                            <span class="glyphicon glyphicon-plus-sign"></span>
                                         </div>
-                                        <div class="col-md-10">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <label>Selecciona Imagen</label>
-                                                    <input type="file" class="form-control" name="url[]" accept="image/jpeg,image/png">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <label>Orden en el que se mostrará</label>
-                                                    <input type="number" class="form-control" name="order_img[]" value="1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <a href="#" class="eliminar"><img  width="40px" src="{{ url('img/system/delete_1.png') }}"></a>
-                                        </div>
+                                        <input class="select_image" type="file" name="url[]"/>
                                     </div>
-                                    <!--
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <label>Nombre de la imagen</label>
-                                            <input type="text" class="form-control" name="name_img[]">
-                                        </div>
-                                    </div>
-                                    -->
                                 </div>
                             </div>
                         </div>

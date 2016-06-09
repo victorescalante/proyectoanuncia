@@ -5733,13 +5733,45 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-/*@import "node_modules/bootstrap-sass/assets/fonts/bootstrap";*/
 /*
 Styles for system anuncia
 */
 /**
 * The next class was create for the new format in the table  view:footbridges/home.blade.php
 **/
+.container_images {
+  padding: 40px;
+  background-color: #eeeeee;
+  border: 4px dotted dodgerblue; }
+  .container_images .file {
+    background: #FFF;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    display: inline-block;
+    width: auto; }
+    .container_images .file .image {
+      background-position: center !important;
+      background-size: cover !important;
+      padding: 20px;
+      position: relative;
+      transition: all .5s ease; }
+      .container_images .file .image + input {
+        display: none; }
+      .container_images .file .image span {
+        border-radius: 50%;
+        font-size: 40px;
+        padding: 10px; }
+    .container_images .file.dragActive .image {
+      padding: 50px; }
+      .container_images .file.dragActive .image span {
+        background: white;
+        opacity: 0; }
+        .container_images .file.dragActive .image span:before {
+          content: '\e031' !important; }
+      .container_images .file.dragActive .image:hover span {
+        opacity: 1; }
+
 table.formatnew tr:nth-of-type(2n+2) {
   background-color: rgba(0, 220, 255, 0.13); }
 

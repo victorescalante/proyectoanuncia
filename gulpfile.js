@@ -21,3 +21,16 @@ elixir(function(mix) {
     mix.scripts([
         'functions.js'], 'public/js');
 });
+
+
+elixir(function(mix){
+    mix.copy([
+            'node_modules/bootstrap-sass/assets/fonts/bootstrap/'],
+        'public/build/fonts/bootstrap'
+    );
+});
+
+
+
+
+
