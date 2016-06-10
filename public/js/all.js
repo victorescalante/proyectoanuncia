@@ -234,7 +234,7 @@ function recargarS2(id)
 
 
 
-
+/**
 function form_btns(){
 
     var MaxInputs       = 8; //maximum input boxes allowed
@@ -244,6 +244,7 @@ function form_btns(){
 
     //var x = contenedor.length; //initlal text box count
     var x = $("#contenedor .files").length+1;
+    console.log("El contenedor vale: "+x);
     var FieldCount = x-1; //to keep track of text box added
     $(AddButton).click(function (e)  //on add input button click
     {
@@ -273,9 +274,12 @@ function form_btns(){
     });
 
 }
+ */
 
 
 function dropZone() {
+
+    var clearFormImg    = $('.container_images').html();
 
     function load_image() {
         $('html').on('click','.image', function (event) {
@@ -288,10 +292,13 @@ function dropZone() {
     function load_images_front(){
 
 
-        //$("input[type='file']").on('change',function (event) {
         $("html").on('change','.select_image',function (event) {
 
             var fileImg =  $(this);
+
+            if(fileImg.parent('.file').hasClass('dragActive')){
+                var temp = 1;
+            }
 
             var filesSelected = fileImg[0].files[0];
 
@@ -303,12 +310,18 @@ function dropZone() {
 
                     var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
-                    //fileImg.parents('.contentInput').find('.imgTest img').attr('src', srcData);
                     fileImg.parent('.file').addClass('dragActive');
+
 
                     fileImg.parent('.file').find('.image').css({
                        'background': 'url('+srcData+')',
                     });
+
+                    if(!temp) {
+
+                        form_btns();
+
+                    }
 
                 }
 
@@ -325,8 +338,46 @@ function dropZone() {
     }
 
 
+    function form_btns(){
+
+        var MaxInputs       = 8;
+        var contenedor   	= $(".container_images");
+
+
+        var x = $(".container_images .file").length+1;
+        console.log("El contenedor vale: "+x);
+        var FieldCount = x-1;
+
+        if(x <= MaxInputs)
+        {
+            FieldCount++;
+
+            //add new form img on DOM
+            var newImg = clearFormImg;
+            $('.container_images').append(newImg);
+            //$('.container_images').find('.file:last').find('input:file').attr('name');
+            x++;
+        }
+
+
+        /*
+        $("body").on("click",".eliminar", function(event){ //user click on remove text
+            if( x > 2) {
+                var div_ant = $(this).parent('div');
+                div_ant.parent('div').remove();
+                x=x-1;
+                console.log("Despues de eliminar x vale: "+x);
+            }
+            return false;
+        });
+        */
+
+    }
+
+
     load_image();
     load_images_front();
+
 
 }
 
@@ -355,8 +406,9 @@ function always(){
 function oneTime(){
 
     dropZone();
-    //btn_images();
     //form_btns();
+    //btn_images();
+
 
 }
 function lastTime(){

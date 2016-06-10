@@ -92,24 +92,28 @@ class FootbridgeController extends Controller
 
         if($request->hasFile('url')){
 
-            $array_order = $request->get('order_img');
+            //dd($request->file('url'));
+            //$array_order = $request->get('order_img');
             $files     = $request->file('url');
-            $order     = 0;
+            $order=1;
             foreach ($files as $file) {
-                $name = $file->getClientOriginalName();
-                $count_number_imgs = 1;
-                while(file_exists(storage_path('app/footbridges/'.$name))){
-                    $name= $count_number_imgs.$name;
-                    $count_number_imgs++;
+                if($file != null){
+                    $name = $file->getClientOriginalName();
+                    $count_number_imgs = 1;
+                    while(file_exists(storage_path('app/footbridges/'.$name))){
+                        $name= $count_number_imgs.$name;
+                        $count_number_imgs++;
+                    }
+                    Storage::disk('footbridges')->put($name,File::get($file));
+                    $image = new Image();
+                    $image->name          = $name;
+                    //$image->order         = $array_order[$order];
+                    $image->order         = $order;
+                    $image->url           = storage_path('app/footbridges/'.$name);
+                    $image->footbridge_id = $footbridge->id;
+                    $image->save();
+                    $order++;
                 }
-                Storage::disk('footbridges')->put($name,File::get($file));
-                $image = new Image();
-                $image->name          = $name;
-                $image->order         = $array_order[$order];
-                $image->url           = storage_path('app/footbridges/'.$name);
-                $image->footbridge_id = $footbridge->id;
-                $image->save();
-                $order++;
             }
         }
 
