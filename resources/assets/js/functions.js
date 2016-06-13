@@ -3,9 +3,6 @@
 // Functions for ajax
 token = $("input[name='_token']").val();
 
-function initMap(){
-
-}
 
 /*
  $.ajaxSetup({
@@ -15,12 +12,10 @@ function initMap(){
  });
  */
 
-
-/*
 function initMap() {
 
     var myLatLng = {lat: 19.3431244, lng: -99.4210658};
-    var geocoder = new google.maps.Geocoder;
+    var geocoder = new google.maps.Geocoder();
     var btnAddress = document.getElementById('btnAddress');
 
 
@@ -74,25 +69,14 @@ function initMap() {
             $positions = getLatAndLong();
             getAddress($positions);
             map.setCenter({lat: getLat(), lng: getLong()});
-            //codeAddress(marker);
+            codeAddress(marker);
         });
 
-        /*
-        google.maps.event.addListener(map,marker, "dblclick", function() {
-            console.log("Entro a eliminar");
-            map.removeOverlay(marker);
-        });
-        */
-        /*
         google.maps.event.addListener(marker, 'click', function () {
             $positions = getLatAndLong();
             getAddress($positions);
             map.setCenter({lat: getLat(), lng: getLong()});
-            //codeAddress(marker);
-        });
-
-        google.maps.event.addListener(map, 'click', function () {
-            createMarker(map,{lat: 19.3431244, lng: -99.4210658});
+            codeAddress(marker);
         });
 
         google.maps.event.addDomListener(window, 'resize', function() {
@@ -101,8 +85,6 @@ function initMap() {
 
 
     }
-
-
 
     function events_dom() {
 
@@ -118,7 +100,6 @@ function initMap() {
 
     }
 
-
     function getLatAndLong() {
         var lat = marker.getPosition().lat();
         var long = marker.getPosition().lng();
@@ -126,19 +107,15 @@ function initMap() {
         return lat+","+long;
     }
 
-
     function getLat() {
         var lat = marker.getPosition().lat();
         return lat;
     }
 
-
     function getLong() {
         var long = marker.getPosition().lng();
         return long;
     }
-
-
 
     function getAddress(positions) {
         /* Other solution
@@ -150,7 +127,7 @@ function initMap() {
             }
          });
          */
-        /*
+
         $.ajax({
             method: "GET",
             url: "http://maps.googleapis.com/maps/api/geocode/json?latlng="+positions,
@@ -172,7 +149,6 @@ function initMap() {
         $(".address").val(address);
     }
 
-
     function codeAddress(address) {
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
@@ -181,6 +157,7 @@ function initMap() {
                 var p_long = (results[0].geometry.location.lng());
                 marker.setPosition({lat: p_lat, lng: p_long});
                 map.setCenter({lat: getLat(), lng: getLong()});
+                map.setZoom(16);
                 getLatAndLong();
             } else {
                 alert("Error: " + status);
@@ -190,6 +167,7 @@ function initMap() {
 
 
 
+    //search key map in DOM
 
     element = document.querySelector('#map');
 
@@ -202,11 +180,18 @@ function initMap() {
         events(map,marker);
         map.setOptions({styles: styles});
 
+        var form_lat = $(".latitude").val();
+        var form_long = $(".longitude").val();
+
+        if(form_lat!='' && form_long!=''){
+            $position = form_lat+","+form_long;
+            getAddress($position);
+        }
+
     }
 
-
 }
-*/
+
 
 
 
@@ -230,60 +215,40 @@ function recargarS2(id)
 
 
 
-
-
-
-
-/**
-function form_btns(){
-
-    var MaxInputs       = 8; //maximum input boxes allowed
-    var contenedor   	= $("#contenedor"); //Input boxes wrapper ID
-    var AddButton       = $("#agregarCampo"); //Add button ID
-    var clearFormImg    = $('.files').html();
-
-    //var x = contenedor.length; //initlal text box count
-    var x = $("#contenedor .files").length+1;
-    console.log("El contenedor vale: "+x);
-    var FieldCount = x-1; //to keep track of text box added
-    $(AddButton).click(function (e)  //on add input button click
-    {
-        if(x <= MaxInputs) //max input box allowed
-        {
-            FieldCount++; //div box added increment
-            //add input box
-            var newImg = clearFormImg;
-            console.log(newImg);
-
-            $('.newImg').append(newImg);
-            console.log("Existen: "+x);
-
-            x++; //div box increment
-        }
-        return false;
-    });
-
-    $("body").on("click",".eliminar", function(event){ //user click on remove text
-        if( x > 2) {
-            var div_ant = $(this).parent('div');
-            div_ant.parent('div').remove();
-            x=x-1;
-            console.log("Despues de eliminar x vale: "+x);
-        }
-        return false;
-    });
-
-}
- */
-
-
 function dropZone() {
 
     var clearFormImg    = $('.container_images').html();
+    var clearFormImg2    = $('.file:last').html();
+    var x = $(".container_images .file").length; // the var x is the general container
+    var y = 0; // the var y is the container images create
 
     function load_image() {
         $('html').on('click','.image', function (event) {
             $(this).next(".select_image").trigger('click');
+        });
+
+    }
+
+    function delete_image() {
+        $('html').on('click','.add-delete ', function (event) {
+
+            var delete_file = $(this).parents('.file');
+
+            if(confirm('¿eliminar?')){
+                delete_file.fadeOut('fast');
+                delete_file.remove();
+                /**
+                 * Agregar desmanecimiento
+                 * setTimeout(function (){},1000);
+                 */
+                x--;
+                y--;
+            }
+
+            if( (count_images_exist()==true) && (y==0 && x==1) ) {
+                create_div_img();
+            }
+            event.stopPropagation();
 
         });
 
@@ -310,16 +275,15 @@ function dropZone() {
 
                     var srcData = fileLoadedEvent.target.result; // <--- data: base64
 
-                    fileImg.parent('.file').addClass('dragActive');
-
 
                     fileImg.parent('.file').find('.image').css({
                        'background': 'url('+srcData+')',
                     });
 
+
                     if(!temp) {
 
-                        form_btns();
+                        create_div_img();
 
                     }
 
@@ -327,6 +291,8 @@ function dropZone() {
 
                 fileReader.readAsDataURL(filesSelected);
 
+                fileImg.parent('.file').addClass('dragActive');
+
 
             }
 
@@ -337,64 +303,53 @@ function dropZone() {
 
     }
 
+    function create_div_img(){
 
-    function form_btns(){
+        var MaxInputs       = 5;
 
-        var MaxInputs       = 8;
-        var contenedor   	= $(".container_images");
-
-
-        var x = $(".container_images .file").length+1;
-        console.log("El contenedor vale: "+x);
-        var FieldCount = x-1;
-
-        if(x <= MaxInputs)
+        if(x < MaxInputs)
         {
-            FieldCount++;
-
             //add new form img on DOM
-            var newImg = clearFormImg;
+            var newImg = clearFormImg2;
+            console.log(newImg);
             $('.container_images').append(newImg);
-            //$('.container_images').find('.file:last').find('input:file').attr('name');
             x++;
+            y++;
         }
 
+    }
 
-        /*
-        $("body").on("click",".eliminar", function(event){ //user click on remove text
-            if( x > 2) {
-                var div_ant = $(this).parent('div');
-                div_ant.parent('div').remove();
-                x=x-1;
-                console.log("Despues de eliminar x vale: "+x);
-            }
-            return false;
-        });
-        */
+    function count_images_exist(){
+
+            var val = $('.file').hasClass("dragActive");
+            return val;
 
     }
+
+    function active_sortable(){
+
+
+        $( ".container_images" ).sortable({
+            items: '> .dragActive',
+            cursor: "move",
+            revert: 100,
+            opacity: 0.5,
+        });
+
+        $( ".container_images" ).disableSelection();
+    }
+
 
 
     load_image();
     load_images_front();
+    active_sortable();
+    delete_image();
+
+
 
 
 }
-
-
-
-
-
-//Validate edit
-
-
-function btn_images(){
-    $('.btnImages').on('click', function () {
-        event.preventDefault();
-        $("input[type='file']").trigger('click');
-    });
-}
-
 
 
 //----------------------------------
@@ -406,9 +361,6 @@ function always(){
 function oneTime(){
 
     dropZone();
-    //form_btns();
-    //btn_images();
-
 
 }
 function lastTime(){

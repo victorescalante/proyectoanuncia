@@ -2,6 +2,11 @@
 
 @section('header')
 
+    <style>
+        #map {
+            height: 50%;
+        }
+    </style>
 
 @endsection
 
@@ -202,25 +207,64 @@
                             <div class="row">
                                 <div class="col-md-offset-2 col-md-4 form-group" >
                                     <label for="latitude" class="control-label">Latitud</label>
-                                    <input class="form-control" type="text" name="latitude" pattern="^(\-?\d+(\.\d+)?)$" placeholder="-99.23752" value="{{ $footbridge->latitude }}"  >
+                                    <input class="form-control latitude" type="text" name="latitude" pattern="^(\-?\d+(\.\d+)?)$" placeholder="-99.23752" value="{{ $footbridge->latitude }}"  >
                                 </div>
                                 <div class="col-md-4 form-group">
                                     <label for="length" class="control-label">Longitud</label>
-                                    <input class="form-control" type="text" name="length" pattern="^(\-?\d+(\.\d+)?)$" placeholder="10.23094" value="{{ $footbridge->length }}" >
+                                    <input class="form-control longitude" type="text" name="length" pattern="^(\-?\d+(\.\d+)?)$" placeholder="10.23094" value="{{ $footbridge->length }}" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-offset-2 col-md-8 col-xs-12 form-group">
+                                    <div class="col-xs-12">
+                                        <label class="control-label">Dirección</label>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <input class="form-control address" type="text" name="address"   value="{{ old('address') }}"  >
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a type="button" id="btnAddress" class="btn btn-primary">Buscar Dirección</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="map"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Administrar imagenes</a>
+                        </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="container_images col-md-12 form-group">
+                                    @foreach($images as $image)
+                                        <div class="file dragActive">
+                                            <div class="image" style="background: url('{{ url('/images/footbridges/'.$image->name) }}')">
+                                                <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
+                                                <span class="glyphicon glyphicon-trash add-delete"></span>
+                                            </div>
+                                            <input class="select_image" type="file" name="url[]"/>
+                                        </div>
+                                    @endforeach
+                                    <div class="file">
+                                        <div class="image">
+                                            <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
+                                            <span class="glyphicon glyphicon-trash add-delete"></span>
+                                        </div>
+                                        <input class="select_image" type="file" name="url[]"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-offset-2 col-md-4">
-                Imagenes
-            </div>
-            <div class="col-md-6">
-                <a href="#" class="btnImages btn btn-primary">Seleccionar imagenes</a>
-                <input style="display:none" type="file" class="form-control"name="url[]" multiple accept="image/*"/>
             </div>
         </div>
         <div class="col-md-12 text-center">
@@ -235,6 +279,9 @@
 
 @section('footer')
 
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="{{ url("js/validator.js") }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxu2oAwf0cLKgO7bBpbWDzDNde90lWaTE&signed_in=true&callback=initMap" async defer></script>
+
 
 @endsection

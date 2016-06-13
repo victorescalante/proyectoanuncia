@@ -5742,39 +5742,73 @@ Styles for system anuncia
 .container_images {
   padding: 20px;
   background-color: #eeeeee;
-  border: 4px dotted dodgerblue; }
+  border: 4px dotted #5bc0de; }
   .container_images .file {
-    background: #FFF;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     cursor: pointer;
     display: inline-block;
     margin: 15px;
-    overflow: hidden;
+    padding: 20px;
     vertical-align: middle;
-    width: auto; }
+    width: auto;
+    transition: all .5s ease; }
     .container_images .file .image {
       background-position: center !important;
       background-size: cover !important;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 40px;
       position: relative;
       transition: all .5s ease; }
       .container_images .file .image + input {
         display: none; }
       .container_images .file .image span {
         border-radius: 50%;
+        color: #a0a0a0;
+        display: none;
         font-size: 40px;
-        padding: 10px; }
-    .container_images .file.dragActive .image {
-      padding: 50px; }
-      .container_images .file.dragActive .image span {
-        background: white;
-        opacity: 0; }
-        .container_images .file.dragActive .image span:before {
-          content: '\e031' !important; }
-      .container_images .file.dragActive .image:hover span {
-        transition: all .5s ease;
-        opacity: 1; }
+        left: 50%;
+        padding: 10px;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: all .5s ease; }
+        .container_images .file .image span:first-of-type {
+          display: inline-block; }
+    .container_images .file:hover {
+      padding: 0px; }
+      .container_images .file:hover .image {
+        background-color: #FFF;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        padding: 60px; }
+        .container_images .file:hover .image span {
+          color: #5bc0de; }
+    .container_images .file.dragActive {
+      padding: 0px; }
+      .container_images .file.dragActive .image {
+        background-color: #FFF;
+        padding: 60px; }
+        .container_images .file.dragActive .image span {
+          display: inline-block;
+          left: initial;
+          opacity: 0;
+          transform: none; }
+          .container_images .file.dragActive .image span:before {
+            color: #FFF;
+            font-size: 18px; }
+          .container_images .file.dragActive .image span.add-refresh {
+            background: #5bc0de;
+            right: -19px;
+            top: -19px; }
+            .container_images .file.dragActive .image span.add-refresh:before {
+              content: '\e031' !important; }
+          .container_images .file.dragActive .image span.add-delete {
+            background: #b3241c;
+            left: -19px;
+            top: -19px; }
+        .container_images .file.dragActive .image:hover span {
+          opacity: 1;
+          transition: all .5s ease; }
+          .container_images .file.dragActive .image:hover span:hover {
+            transform: rotate(180deg); }
 
 table.formatnew tr:nth-of-type(2n+2) {
   background-color: rgba(0, 220, 255, 0.13); }

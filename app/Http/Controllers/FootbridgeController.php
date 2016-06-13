@@ -92,24 +92,21 @@ class FootbridgeController extends Controller
 
         if($request->hasFile('url')){
 
-            //dd($request->file('url'));
-            //$array_order = $request->get('order_img');
             $files     = $request->file('url');
             $order=1;
             foreach ($files as $file) {
                 if($file != null){
                     $name = $file->getClientOriginalName();
                     $count_number_imgs = 1;
-                    while(file_exists(storage_path('app/footbridges/'.$name))){
+                    while(file_exists(public_path('images/footbridges/'.$name))){
                         $name= $count_number_imgs.$name;
                         $count_number_imgs++;
                     }
                     Storage::disk('footbridges')->put($name,File::get($file));
                     $image = new Image();
                     $image->name          = $name;
-                    //$image->order         = $array_order[$order];
                     $image->order         = $order;
-                    $image->url           = storage_path('app/footbridges/'.$name);
+                    $image->url           = public_path('images/footbridges/'.$name);
                     $image->footbridge_id = $footbridge->id;
                     $image->save();
                     $order++;
@@ -142,11 +139,12 @@ class FootbridgeController extends Controller
         $footbridge = Footbridge::findOrFail($id);
         $states = State::all();
         $municipalities = DB::table('municipalities')->where('state_id','=',$footbridge->municipality->state->id)->get();
-        //dd($municipalities);
+        $images = DB::table('images')->where('footbridge_id','=',$footbridge->id)->get();
         return view('footbridge.edit', [
             'footbridge' => $footbridge,
             'states'     => $states,
             'municipalities' => $municipalities,
+            'images' => $images
         ]);
 
 

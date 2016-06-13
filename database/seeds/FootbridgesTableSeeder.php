@@ -14,7 +14,7 @@ class FootbridgesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for($i=1;$i<=40;$i++){
+        for($i=1;$i<=4;$i++){
             DB::table('footbridges')->insert([
                 'name' => 'Puente '.$faker->firstName,
                 'availability' => 'Disponible',

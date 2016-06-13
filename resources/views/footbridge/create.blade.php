@@ -56,7 +56,7 @@
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Datos generales</a>
                         </h4>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse ">
+                    <div id="collapse1" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="form-group has-feedback col-md-6">
@@ -87,7 +87,7 @@
                                 Ubicación del puente</a>
                         </h4>
                     </div>
-                    <div id="collapse3" class="panel-collapse collapse ">
+                    <div id="collapse3" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-offset-2 col-md-4">
@@ -223,7 +223,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-default in">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Subir imagenes</a>
@@ -232,13 +232,11 @@
                     <div id="collapse4" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-12 form-group">
-                                    <a id="agregarCampo" class="btn btn-info" href="#">Agregar Campo</a>
-                                </div>
                                 <div class="container_images col-md-12 form-group">
                                     <div class="file">
                                         <div class="image">
-                                            <span class="glyphicon glyphicon-plus-sign"></span>
+                                            <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
+                                            <span class="glyphicon glyphicon-trash add-delete"></span>
                                         </div>
                                         <input class="select_image" type="file" name="url[]"/>
                                     </div>
@@ -267,9 +265,8 @@
 
 @section('footer')
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="{{ url("js/validator.js") }}"></script>
-    <script src="{{ url("js/dropzone.js") }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxu2oAwf0cLKgO7bBpbWDzDNde90lWaTE&signed_in=true&callback=initMap" async defer></script>
 
 

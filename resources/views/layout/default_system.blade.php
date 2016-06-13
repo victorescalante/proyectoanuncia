@@ -13,6 +13,7 @@
     <body>
 
     @yield('menu')
+
     <div class="container">
         @yield('content')
     </div>

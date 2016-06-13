@@ -56,7 +56,7 @@ return [
 
         'footbridges' => [
             'driver'     => 'local',
-            'root'       => storage_path('app/footbridges'),
+            'root'       => public_path('images/footbridges'),
             'visibility' => 'public',
         ],
 

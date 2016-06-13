@@ -25,25 +25,28 @@ Styles for system anuncia
 
 // End-animation
 
+$c-cyan-normal: #5bc0de;
+$c-red-dark: #b3241c;
+
 
 .container_images{
   padding: 20px;
   background-color: #eeeeee;
-  border: 4px dotted dodgerblue ;
+  border: 4px dotted $c-cyan-normal ;
   & .file{
-    background: #FFF;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     cursor: pointer;
     display: inline-block;
     margin: 15px;
-    overflow: hidden;
+    padding: 20px;
+    //overflow: hidden;
     vertical-align: middle;
     width: auto;
+    @include trans-all;
     & .image{
       background-position: center !important;
       background-size: cover !important;
-      padding: 20px;
+      border-radius: 10px;
+      padding: 40px;
       position: relative;
       @include trans-all;
       &+input{
@@ -51,24 +54,69 @@ Styles for system anuncia
       }
       & span{
         border-radius: 50%;
+        color: #a0a0a0;
+        display: none;
         font-size: 40px;
+        left: 50%;
         padding: 10px;
+        position: absolute;
+        top: 50%;
+        transform:translate(-50%,-50%);
+        @include trans-all;
+        &:first-of-type{
+          display: inline-block;
+        }
+      }
+    }
+    &:hover{
+      padding: 0px;
+      & .image{
+        background-color: #FFF;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        padding: 60px;
+        & span{
+          color: $c-cyan-normal;
+        }
       }
     }
     &.dragActive{
+      padding: 0px;
       & .image{
-        padding: 50px;
+        background-color: #FFF;
+        padding: 60px;
         & span{
-          background: white;
+          display: inline-block;
+          left: initial;
           opacity: 0;
+          transform: none;
           &:before{
-            content: '\e031' !important;
+            color: #FFF;
+            font-size: 18px;
+          }
+          &.add-refresh{
+            background: $c-cyan-normal;
+            right: -19px;
+            top: -19px;
+            &:before{
+              content: '\e031' !important;
+            }
+          }
+          &.add-delete{
+            background: $c-red-dark;
+            left: -19px;
+            top: -19px;
+            &:before{
+              //content: '\e031' !important;
+            }
           }
         }
         &:hover{
           & span{
-            @include trans-all;
             opacity: 1;
+            @include trans-all;
+            &:hover{
+              transform: rotate(180deg);
+            }
           }
         }
       }
