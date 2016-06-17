@@ -7,6 +7,7 @@ Styles for system anuncia
 **/
 
 
+
 //Animation
 
 @mixin trans-all{
@@ -33,6 +34,9 @@ $c-red-dark: #b3241c;
   padding: 20px;
   background-color: #eeeeee;
   border: 4px dotted $c-cyan-normal ;
+  & .content_file{
+    display: inline-block;
+  }
   & .file{
     cursor: pointer;
     display: inline-block;
@@ -42,14 +46,18 @@ $c-red-dark: #b3241c;
     vertical-align: middle;
     width: auto;
     @include trans-all;
+    & input{
+      display: none;
+    }
     & .image{
+      background-color: #FFF !important;
       background-position: center !important;
       background-size: cover !important;
       border-radius: 10px;
       padding: 40px;
       position: relative;
       @include trans-all;
-      &+input{
+      &+input {
         display: none;
       }
       & span{
@@ -144,6 +152,8 @@ table
   }
 }
 
+
+
 .panel-group{
   &.panel-form-green{
     & .panel{
@@ -161,6 +171,64 @@ table
     }
   }
 }
+
+
+//Menu inicio
+.navbar{
+  &.portal{
+    background-color: #ea0528;
+    border-color: #e7e7e7;
+    & .container-fluid{
+      & .collapse{
+        & .nav{
+          & li{
+            & a{
+              color: #FFF;
+              font-family: apexsansclightlight;
+              text-transform: lowercase;
+              font-size: 16px;
+            }
+            &.active{
+              & a{
+                color: #000;
+              }
+            }
+          }
+        }
+      }
+      & .navbar-header{
+        & .navbar-toggle{
+          & .icon-bar{
+            background-color: #fffefe;
+          }
+        }
+        & .navbar-brand{
+          padding: 8px;
+          & img{
+            width: 100px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.show{
+  & h1,h2,h3{
+    color: #5b5b5b;
+    font-family: apexsansclightlight;
+    text-transform: lowercase;
+    & span{
+      font-size: smaller;
+      color: #ea0528;
+    }
+  }
+}
+
+.invisible{
+  display:none;
+}
+
 
 
 

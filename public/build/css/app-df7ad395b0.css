@@ -5743,6 +5743,8 @@ Styles for system anuncia
   padding: 20px;
   background-color: #eeeeee;
   border: 4px dotted #5bc0de; }
+  .container_images .content_file {
+    display: inline-block; }
   .container_images .file {
     cursor: pointer;
     display: inline-block;
@@ -5751,7 +5753,10 @@ Styles for system anuncia
     vertical-align: middle;
     width: auto;
     transition: all .5s ease; }
+    .container_images .file input {
+      display: none; }
     .container_images .file .image {
+      background-color: #FFF !important;
       background-position: center !important;
       background-size: cover !important;
       border-radius: 10px;
@@ -5825,5 +5830,33 @@ table.formatnew tr td {
     font-weight: lighter;
     text-decoration: none;
     letter-spacing: 2px; }
+
+.navbar.portal {
+  background-color: #ea0528;
+  border-color: #e7e7e7; }
+  .navbar.portal .container-fluid .collapse .nav li a {
+    color: #FFF;
+    font-family: apexsansclightlight;
+    text-transform: lowercase;
+    font-size: 16px; }
+  .navbar.portal .container-fluid .collapse .nav li.active a {
+    color: #000; }
+  .navbar.portal .container-fluid .navbar-header .navbar-toggle .icon-bar {
+    background-color: #fffefe; }
+  .navbar.portal .container-fluid .navbar-header .navbar-brand {
+    padding: 8px; }
+    .navbar.portal .container-fluid .navbar-header .navbar-brand img {
+      width: 100px; }
+
+.show h1, .show h2, .show h3 {
+  color: #5b5b5b;
+  font-family: apexsansclightlight;
+  text-transform: lowercase; }
+  .show h1 span, .show h2 span, .show h3 span {
+    font-size: smaller;
+    color: #ea0528; }
+
+.invisible {
+  display: none; }
 
 /*# sourceMappingURL=app.css.map */

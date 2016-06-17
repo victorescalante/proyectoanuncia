@@ -41,7 +41,7 @@
 @section('content')
 
     <div class="col-md-12">
-        <h1>Alta de Puente Peatonal</h1>
+        <h1>Editando <span class="text-danger">{{ $footbridge->name }}</span></h1>
         @include('partials.errors')
     </div>
     <form role="form" data-toggle="validator" action="{{ route('footbridge_patch_path',$footbridge->id) }}" method="post" enctype="multipart/form-data">
@@ -55,7 +55,7 @@
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Datos generales</a>
                         </h4>
                     </div>
-                    <div id="collapse1" class="panel-collapse collapse in">
+                    <div id="collapse1" class="panel-collapse collapse">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="form-group has-feedback col-md-6">
@@ -225,7 +225,6 @@
                                     <div class="col-xs-4">
                                         <a type="button" id="btnAddress" class="btn btn-primary">Buscar Dirección</a>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
@@ -240,7 +239,7 @@
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Administrar imagenes</a>
                         </h4>
                     </div>
-                    <div id="collapse4" class="panel-collapse collapse">
+                    <div id="collapse4" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="container_images col-md-12 form-group">
@@ -251,14 +250,18 @@
                                                 <span class="glyphicon glyphicon-trash add-delete"></span>
                                             </div>
                                             <input class="select_image" type="file" name="url[]"/>
+                                            <input class="id_img" type="text" name="id[]" value="{{ $image->id }}"/>
                                         </div>
                                     @endforeach
-                                    <div class="file">
-                                        <div class="image">
-                                            <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
-                                            <span class="glyphicon glyphicon-trash add-delete"></span>
+                                    <div class="content_file">
+                                        <div class="file">
+                                            <div class="image">
+                                                <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
+                                                <span class="glyphicon glyphicon-trash add-delete"></span>
+                                            </div>
+                                            <input class="select_image" type="file" name="url[]"/>
+                                            <input class="id_img" type="text" name="id[]" value="new"/>
                                         </div>
-                                        <input class="select_image" type="file" name="url[]"/>
                                     </div>
                                 </div>
                             </div>

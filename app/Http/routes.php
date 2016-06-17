@@ -12,11 +12,6 @@ Route::get('/', [
 ]);
 
 
-Route::get('puentes/{id}/show', [
-    'uses' => 'FootbridgeController@show',
-    'as'   => 'footbridge_show_path',
-]);
-
 Route::get('contacto', [
     'uses' => 'PageController@contact',
     'as'   => 'contact_show_path',
@@ -40,6 +35,11 @@ Route::post('auth/login', [
 Route::get('auth/logout', [
     'uses' => 'AuthController@destroy',
     'as'   => 'auth_destroy_path',
+]);
+
+Route::get('puentes/{id}', [
+    'uses' => 'FootbridgeController@show',
+    'as'   => 'footbridge_show_path',
 ]);
 
 //Routes of the system

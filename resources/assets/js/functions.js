@@ -132,8 +132,8 @@ function initMap() {
             method: "GET",
             url: "http://maps.googleapis.com/maps/api/geocode/json?latlng="+positions,
             success: function(resp){
-                console.log(resp.status);
-                sendFormAddress(resp.results[0].formatted_address);
+                $result_address=resp.results[0].formatted_address;
+                sendFormAddress($result_address);
 
             }
         });
@@ -152,7 +152,6 @@ function initMap() {
     function codeAddress(address) {
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                console.log(results);
                 var p_lat = (results[0].geometry.location.lat());
                 var p_long = (results[0].geometry.location.lng());
                 marker.setPosition({lat: p_lat, lng: p_long});
@@ -183,9 +182,15 @@ function initMap() {
         var form_lat = $(".latitude").val();
         var form_long = $(".longitude").val();
 
+        form_lat_f = parseFloat(form_lat);
+        form_long_f = parseFloat(form_long);
+
         if(form_lat!='' && form_long!=''){
             $position = form_lat+","+form_long;
             getAddress($position);
+            marker.setPosition({lat: form_lat_f, lng: form_long_f});
+            map.setCenter({lat: getLat(), lng: getLong()});
+            map.setZoom(16);
         }
 
     }
@@ -218,9 +223,15 @@ function recargarS2(id)
 function dropZone() {
 
     var clearFormImg    = $('.container_images').html();
-    var clearFormImg2    = $('.file:last').html();
+    if($('.content_file').hasClass('content_file')){
+        clearFormImg = $('.content_file').html();
+    }
+
+    var MaxInputs       = 8;
+    var band = 0;
     var x = $(".container_images .file").length; // the var x is the general container
-    var y = 0; // the var y is the container images create
+    var y = x-1; // the var y is the container images create
+
 
     function load_image() {
         $('html').on('click','.image', function (event) {
@@ -234,6 +245,10 @@ function dropZone() {
 
             var delete_file = $(this).parents('.file');
 
+            if(x==y){
+                band=1;
+            }
+
             if(confirm('¿eliminar?')){
                 delete_file.fadeOut('fast');
                 delete_file.remove();
@@ -242,12 +257,14 @@ function dropZone() {
                  * setTimeout(function (){},1000);
                  */
                 x--;
-                y--;
+                y=x-1;
             }
 
-            if( (count_images_exist()==true) && (y==0 && x==1) ) {
+            if( (images_exist()==true) && (y==0 && x==1) || band==1) {
                 create_div_img();
+                band=0;
             }
+
             event.stopPropagation();
 
         });
@@ -305,21 +322,19 @@ function dropZone() {
 
     function create_div_img(){
 
-        var MaxInputs       = 5;
-
         if(x < MaxInputs)
         {
             //add new form img on DOM
-            var newImg = clearFormImg2;
-            console.log(newImg);
+            var newImg = clearFormImg;
             $('.container_images').append(newImg);
+            $('.content_file').find('.file').unwrap('<div></div>');
             x++;
-            y++;
         }
+        y++;
 
     }
 
-    function count_images_exist(){
+    function images_exist(){
 
             var val = $('.file').hasClass("dragActive");
             return val;
@@ -335,6 +350,7 @@ function dropZone() {
             revert: 100,
             opacity: 0.5,
         });
+
 
         $( ".container_images" ).disableSelection();
     }

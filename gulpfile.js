@@ -17,18 +17,20 @@ elixir(function(mix) {
 });
 
 
+
 elixir(function(mix) {
-    mix.scripts([
-        'functions.js'], 'public/js');
+    mix.scripts(['functions.js'], 'public/js/all.js')
+        .scripts(['map_show_view.js'], 'public/js/maps_show.js');
 });
 
-
+/*
 elixir(function(mix){
     mix.copy([
             'node_modules/bootstrap-sass/assets/fonts/bootstrap/'],
         'public/build/fonts/bootstrap'
     );
 });
+*/
 
 
 
