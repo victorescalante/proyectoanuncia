@@ -17,7 +17,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ url('/') }}">
               <img src="http://anuncia.cc/img/loguito.jpg">
             </a>
           </div>
@@ -35,6 +35,7 @@
         </div><!-- /.container-fluid -->
       </div>
     </nav>
+    @yield('background')
     <div class="container">
     <!--
     @if($currentUser)
@@ -48,6 +49,7 @@
   </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  @yield('footer')
+    @yield('js_map')
+    @yield('footer')
   </body>
 </html>

@@ -8,6 +8,11 @@ Styles for system anuncia
 
 
 
+//Inputs Invisibles
+.invisible{
+  display:none;
+}
+
 //Animation
 
 @mixin trans-all{
@@ -159,7 +164,7 @@ table
     & .panel{
     &.panel-default{
       & .panel-heading{
-          background-color: #B3241C;
+          background-color: #ea0528;
           color: white;
           & .panel-title{
             font-weight: lighter;
@@ -175,9 +180,10 @@ table
 
 //Menu inicio
 .navbar{
+  margin-bottom: 0px;
   &.portal{
     background-color: #ea0528;
-    border-color: #e7e7e7;
+    border:0px;
     & .container-fluid{
       & .collapse{
         & .nav{
@@ -191,6 +197,7 @@ table
             &.active{
               & a{
                 color: #000;
+                background-color: #ffffff;
               }
             }
           }
@@ -213,21 +220,87 @@ table
   }
 }
 
-.show{
-  & h1,h2,h3{
-    color: #5b5b5b;
-    font-family: apexsansclightlight;
-    text-transform: lowercase;
-    & span{
-      font-size: smaller;
-      color: #ea0528;
+
+
+section {
+  height:100%;
+  padding-top:50px;
+  padding-bottom:50px;
+  overflow:auto;
+  &.bg-1 {
+    background: url('http://anuncia.cc/img/autos.03.jpg') no-repeat center center fixed;
+    color:#fff;
+    background-size:cover;
+    & .container-logo{
+      padding: 3rem;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      & .logo{
+        background: url("http://anuncia.cc/img/HOME.logo_.02.jpg") no-repeat center center;
+        background-size: 100% 60%;
+        height: 20rem;
+        width: 30rem;
+        display: block;
+        margin: 0 auto;
+      }
     }
   }
 }
 
-.invisible{
-  display:none;
+.footer-page {
+  height: 60px;
+  background-color:#ea0528;
+  margin-top:50px;
+  padding-top:20px;
+  padding-bottom:20px;
+  p {
+    color:#FFF;
+  }
 }
+
+.row{
+  &.show{
+    & .search-form{
+      padding-top: 15px;
+      & .btn-default{
+        border-color: #ea0528;
+        background-color: #ea0528;
+        color: #FFF;
+      }
+    }
+    & h1,h2,h3,h4,h5{
+      color: #5b5b5b;
+      font-family: apexsansclightlight;
+      text-transform: lowercase;
+      & span{
+        font-size: smaller;
+        color: #ea0528;
+      }
+    }
+  }
+  &.error{
+    transform: translateY(100%);
+    & h1{
+      color: #ea0528;
+    }
+    & p{
+      color: #5b5b5b;
+    }
+  }
+}
+
+
+
+
+.thumbnail{
+  position: relative;
+  & .btn-img{
+    position: absolute;
+  }
+}
+
+
 
 
 

@@ -128,8 +128,20 @@ class FootbridgeController extends Controller
         $images = DB::table('images')->where('footbridge_id','=',$footbridge->id)
             ->orderBy('order', 'asc')
             ->get();
+        $footbridges_close = DB::table('footbridges')
+            ->join('images','footbridges.id','=','footbridge_id')
+            ->select('footbridges.id','footbridges.name', 'images.url')
+            ->where(function ($query) use ($footbridge) {
+                $query->where('footbridges.municipality_id', $footbridge->municipality_id)
+                    ->where('footbridges.id', '!=', $footbridge->id);
+            })
+            ->groupBy('footbridges.name')
+            ->orderBy('images.order','asc')
+            ->take(6)
+            ->get();
         return view('footbridge.show',[
             'footbridge' => $footbridge,
+            'footbridges_close' => $footbridges_close,
             'images'     => $images,
         ]);
     }

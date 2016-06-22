@@ -21,6 +21,10 @@ Route::get('catalogo', [
     'uses' => 'PageController@catalog',
     'as'   => 'catalog_show_path',
 ]);
+Route::post('catalogo/search', [
+    'uses' => 'PageController@search',
+    'as'   => 'catalog_search_path',
+]);
 
 //Routes Login
 

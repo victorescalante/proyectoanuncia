@@ -5739,6 +5739,9 @@ Styles for system anuncia
 /**
 * The next class was create for the new format in the table  view:footbridges/home.blade.php
 **/
+.invisible {
+  display: none; }
+
 .container_images {
   padding: 20px;
   background-color: #eeeeee;
@@ -5824,39 +5827,89 @@ table.formatnew tr td {
     color: #5CB85C; }
 
 .panel-group.panel-form-green .panel.panel-default .panel-heading {
-  background-color: #B3241C;
+  background-color: #ea0528;
   color: white; }
   .panel-group.panel-form-green .panel.panel-default .panel-heading .panel-title {
     font-weight: lighter;
     text-decoration: none;
     letter-spacing: 2px; }
 
-.navbar.portal {
-  background-color: #ea0528;
-  border-color: #e7e7e7; }
-  .navbar.portal .container-fluid .collapse .nav li a {
-    color: #FFF;
-    font-family: apexsansclightlight;
-    text-transform: lowercase;
-    font-size: 16px; }
-  .navbar.portal .container-fluid .collapse .nav li.active a {
-    color: #000; }
-  .navbar.portal .container-fluid .navbar-header .navbar-toggle .icon-bar {
-    background-color: #fffefe; }
-  .navbar.portal .container-fluid .navbar-header .navbar-brand {
-    padding: 8px; }
-    .navbar.portal .container-fluid .navbar-header .navbar-brand img {
-      width: 100px; }
+.navbar {
+  margin-bottom: 0px; }
+  .navbar.portal {
+    background-color: #ea0528;
+    border: 0px; }
+    .navbar.portal .container-fluid .collapse .nav li a {
+      color: #FFF;
+      font-family: apexsansclightlight;
+      text-transform: lowercase;
+      font-size: 16px; }
+    .navbar.portal .container-fluid .collapse .nav li.active a {
+      color: #000;
+      background-color: #ffffff; }
+    .navbar.portal .container-fluid .navbar-header .navbar-toggle .icon-bar {
+      background-color: #fffefe; }
+    .navbar.portal .container-fluid .navbar-header .navbar-brand {
+      padding: 8px; }
+      .navbar.portal .container-fluid .navbar-header .navbar-brand img {
+        width: 100px; }
 
-.show h1, .show h2, .show h3 {
+section {
+  height: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: auto; }
+  section.bg-1 {
+    background: url("http://anuncia.cc/img/autos.03.jpg") no-repeat center center fixed;
+    color: #fff;
+    background-size: cover; }
+    section.bg-1 .container-logo {
+      padding: 3rem;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%); }
+      section.bg-1 .container-logo .logo {
+        background: url("http://anuncia.cc/img/HOME.logo_.02.jpg") no-repeat center center;
+        background-size: 100% 60%;
+        height: 20rem;
+        width: 30rem;
+        display: block;
+        margin: 0 auto; }
+
+.footer-page {
+  height: 60px;
+  background-color: #ea0528;
+  margin-top: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  .footer-page p {
+    color: #FFF; }
+
+.row.show .search-form {
+  padding-top: 15px; }
+  .row.show .search-form .btn-default {
+    border-color: #ea0528;
+    background-color: #ea0528;
+    color: #FFF; }
+
+.row.show h1, .row.show h2, .row.show h3, .row.show h4, .row.show h5 {
   color: #5b5b5b;
   font-family: apexsansclightlight;
   text-transform: lowercase; }
-  .show h1 span, .show h2 span, .show h3 span {
+  .row.show h1 span, .row.show h2 span, .row.show h3 span, .row.show h4 span, .row.show h5 span {
     font-size: smaller;
     color: #ea0528; }
 
-.invisible {
-  display: none; }
+.row.error {
+  transform: translateY(100%); }
+  .row.error h1 {
+    color: #ea0528; }
+  .row.error p {
+    color: #5b5b5b; }
+
+.thumbnail {
+  position: relative; }
+  .thumbnail .btn-img {
+    position: absolute; }
 
 /*# sourceMappingURL=app.css.map */
