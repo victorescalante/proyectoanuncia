@@ -14,7 +14,8 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('footbridge_id');
+            $table->integer('footbridge_id')->unsigned();
+            $table->foreign('footbridge_id')->references('id')->on('footbridges')->onDelete('cascade');
             $table->string('name');
             $table->string('url');
             $table->integer('order');

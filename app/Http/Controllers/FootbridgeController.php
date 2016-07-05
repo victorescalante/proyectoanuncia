@@ -3,7 +3,7 @@
 namespace Anuncia\Http\Controllers;
 
 use Anuncia\Footbridge;
-use Anuncia\Image;
+use Anuncia\Photo;
 use Anuncia\Municipality;
 use Anuncia\State;
 use Illuminate\Http\Request;
@@ -113,7 +113,7 @@ class FootbridgeController extends Controller
     public function show($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        $images = Image::ofFootbridge($footbridge);
+        $images = Photo::ofFootbridge($footbridge);
         $footbridges_close = Footbridge::closeFootbridge($footbridge);
             
         return view('footbridge.show',[
@@ -134,7 +134,7 @@ class FootbridgeController extends Controller
         $footbridge = Footbridge::findOrFail($id);
         $states = State::all();
         $municipalities = Municipality::StateId($footbridge);
-        $images = Image::ofFootbridge($footbridge);
+        $images = Photo::ofFootbridge($footbridge);
 
         return view('footbridge.edit', [
             'footbridge' => $footbridge,
@@ -217,7 +217,7 @@ class FootbridgeController extends Controller
                     //var_dump($valor_id);
                     //var_dump($valor_file);
                     //Proceso de Actualización
-                    $image = Image::findOrFail($valor_id);
+                    $image = Photo::findOrFail($valor_id);
                     var_dump($image);
                     if ($image) {
                         $anterior = $image->name;
@@ -258,7 +258,7 @@ class FootbridgeController extends Controller
                         $count_number_imgs++;
                     }
                     Storage::disk('footbridges')->put($name,File::get($valor_file));
-                    $image = new Image();
+                    $image = new Photo();
                     $image->name          = $name;
                     $image->order         = $order;
                     $image->url           = url('images/footbridges/'.$name);
@@ -272,7 +272,7 @@ class FootbridgeController extends Controller
                 if($files[$i] == null && $id[$i] != null && $id[$i]!='new' ){
                     //var_dump("Entra aqui el id esta lleno");
                     $valor_id = $id[$i];
-                    $image = Image::findOrFail($valor_id);
+                    $image = Photo::findOrFail($valor_id);
                     //var_dump($image);
                     if ($image) {
                         $image->order = $order;
@@ -320,13 +320,9 @@ class FootbridgeController extends Controller
     public function destroy($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        $footbridge_images = Image::ofFootbridge($footbridge);
-        foreach($footbridge_images as $footbridge_image){
-            $name = $footbridge_image->name;
-            Storage::disk('footbridges')->delete($name);
-            $footbridge_image->delete();
-        }
+
         $footbridge->delete();
+
 
         return redirect()->route('footbridge_home_path');
 

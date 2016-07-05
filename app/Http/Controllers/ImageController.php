@@ -2,7 +2,7 @@
 
 namespace Anuncia\Http\Controllers;
 
-use Anuncia\Image;
+use Anuncia\Photo;
 use Illuminate\Http\Request;
 
 use Anuncia\Http\Requests;
@@ -33,7 +33,7 @@ class ImageController extends Controller
         foreach ($files as $file) {
             $name = $this->reName($file->getClientOriginalName());
             Storage::disk('footbridges')->put($name,File::get($file));
-            $image = new Image();
+            $image = new Photo();
             $image->name          = $name;
             $image->order         = $order;
             $image->url           = url('images/footbridges/'.$name);
@@ -59,7 +59,7 @@ class ImageController extends Controller
     public function destroy($item)
     {
         Storage::disk('footbridges')->delete($item->name);
-        Image::destroy($item->id);
+        Photo::destroy($item->id);
     }
 
 

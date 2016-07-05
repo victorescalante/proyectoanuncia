@@ -4,7 +4,7 @@ namespace Anuncia;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Photo extends Model
 {
     protected $table = 'images';
 

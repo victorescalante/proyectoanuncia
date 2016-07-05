@@ -19,7 +19,7 @@ class Footbridge extends Model
     public function images()
     {
 
-        return $this->hasMany(Image::class, 'footbridge_id');
+        return $this->hasMany(Photo::class, 'footbridge_id');
     }
 
     public function municipality()
