@@ -2,15 +2,19 @@
 
 namespace Anuncia\Http\Controllers;
 
+
+use Anuncia\Http\Requests\FootbridgeRequest;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Laracasts\Flash\Flash;
+use Anuncia\Municipality;
 use Anuncia\Footbridge;
 use Anuncia\Photo;
-use Anuncia\Municipality;
 use Anuncia\State;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+
+
 
 class FootbridgeController extends Controller
 {
@@ -23,9 +27,6 @@ class FootbridgeController extends Controller
      */
     public function index()
     {
-
-        // $footbridges = Footbridge::paginate(10);
-        // $footbridges->load('municipality');
 
         $footbridges = Footbridge::with('municipality')->paginate(10);
 
@@ -46,60 +47,16 @@ class FootbridgeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param FootbridgeRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(FootbridgeRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name'         =>  'required',
-            'availability' =>  'required',
-        ]);
 
-        if ($validator->fails()) {
-            return redirect()
-                ->route('footbridge_create_path')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-
-        $footbridge = new Footbridge();
-        $footbridge->name            = $request->get('name');
-        $footbridge->availability    = $request->get('availability');
-        $footbridge->description     = $request->get('description');
-        $footbridge->position        = $request->get('position');
-        $footbridge->views           = $request->get('views');
-        $footbridge->frontal         = $request->get('frontal');
-        $footbridge->crusade         = $request->get('crusade');
-        $footbridge->mega            = $request->get('mega');
-        $footbridge->side            = $request->get('side');
-        $footbridge->street          = $request->get('street');
-        $footbridge->reference_c     = $request->get('reference_c');
-        $footbridge->reference_n     = $request->get('reference_n');
-        $footbridge->reference_s     = $request->get('reference_s');
-        $footbridge->reference_o     = $request->get('reference_o');
-        $footbridge->reference_p     = $request->get('reference_p');
-        $footbridge->municipality_id = $request->get('municipality_id');
-        $footbridge->order           = $request->get('order');
-        $footbridge->latitude        = $request->get('latitude');
-        $footbridge->length          = $request->get('length');
+        $footbridge = new Footbridge($request->all());
         $footbridge->save();
 
-
-
-        if($request->hasFile('url')){
-
-            $collection = collect($request->file('url'))
-                ->reject(function ($file) {
-                    return empty($file);
-                });
-            //send images at ControllerImage
-            app(ImageController::class)->store($collection,$footbridge);
-
-        }
+        Flash::success('Footbridge '.$footbridge->name.' created');
 
         return redirect()->route('footbridge_home_path');
     }

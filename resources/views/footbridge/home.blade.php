@@ -3,6 +3,7 @@
 
 @section('content')
     <div class="row">
+        @include('flash::message')
         <div class="container">
             <div class="col-md-10">
                 <h2>Puentes</h2>

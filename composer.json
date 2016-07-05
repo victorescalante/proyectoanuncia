@@ -10,7 +10,8 @@
         "fzaninotto/faker": "^1.6",
         "barryvdh/laravel-debugbar": "^2.2",
         "components/font-awesome": "^4.6",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "laracasts/flash": "^2.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
@@ -21,6 +22,9 @@
     "autoload": {
         "classmap": [
             "database"
+        ],
+        "files": [
+            "app/helpers.php"
         ],
         "psr-4": {
             "Anuncia\\": "app/"
