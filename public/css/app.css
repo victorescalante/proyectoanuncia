@@ -5854,21 +5854,43 @@ table.formatnew tr td {
       .navbar.portal .container-fluid .navbar-header .navbar-brand img {
         width: 100px; }
 
-section {
+body.red-background {
+  background-color: #B71C1C; }
+  body.red-background .navbar {
+    margin-bottom: 0px; }
+    body.red-background .navbar.portal {
+      background-color: #ea0528;
+      border: 0px; }
+      body.red-background .navbar.portal .container-fluid .collapse .nav li a {
+        color: #FFF;
+        font-family: apexsansclightlight;
+        text-transform: lowercase;
+        font-size: 16px; }
+      body.red-background .navbar.portal .container-fluid .collapse .nav li.active a {
+        color: #000;
+        background-color: #FFF; }
+      body.red-background .navbar.portal .container-fluid .navbar-header .navbar-toggle .icon-bar {
+        background-color: #000; }
+      body.red-background .navbar.portal .container-fluid .navbar-header .navbar-brand {
+        padding: 8px; }
+        body.red-background .navbar.portal .container-fluid .navbar-header .navbar-brand img {
+          width: 100px; }
+
+body section {
   height: 100%;
   padding-top: 50px;
   padding-bottom: 50px;
   overflow: auto; }
-  section.bg-1 {
+  body section.bg-1 {
     background: url("http://anuncia.cc/img/autos.03.jpg") no-repeat center center fixed;
     color: #fff;
     background-size: cover; }
-    section.bg-1 .container-logo {
+    body section.bg-1 .container-logo {
       padding: 3rem;
       position: relative;
       top: 50%;
       transform: translateY(-50%); }
-      section.bg-1 .container-logo .logo {
+      body section.bg-1 .container-logo .logo {
         background: url("http://anuncia.cc/img/HOME.logo_.02.jpg") no-repeat center center;
         background-size: 100% 60%;
         height: 20rem;
@@ -5876,40 +5898,50 @@ section {
         display: block;
         margin: 0 auto; }
 
-.footer-page {
+body .footer-page {
   height: 60px;
   background-color: #ea0528;
   margin-top: 50px;
   padding-top: 20px;
   padding-bottom: 20px; }
-  .footer-page p {
+  body .footer-page p {
     color: #FFF; }
 
-.row.show .search-form {
+body .row .container.login {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); }
+  body .row .container.login .img-responsive {
+    max-width: 300px;
+    width: 100%; }
+  body .row .container.login label {
+    color: #FFF; }
+
+body .row.show .search-form {
   padding-top: 15px; }
-  .row.show .search-form .btn-default {
+  body .row.show .search-form .btn-default {
     border-color: #ea0528;
     background-color: #ea0528;
     color: #FFF; }
 
-.row.show h1, .row.show h2, .row.show h3, .row.show h4, .row.show h5 {
+body .row.show h1, body .row.show h2, body .row.show h3, body .row.show h4, body .row.show h5 {
   color: #5b5b5b;
   font-family: apexsansclightlight;
   text-transform: lowercase; }
-  .row.show h1 span, .row.show h2 span, .row.show h3 span, .row.show h4 span, .row.show h5 span {
+  body .row.show h1 span, body .row.show h2 span, body .row.show h3 span, body .row.show h4 span, body .row.show h5 span {
     font-size: smaller;
     color: #ea0528; }
 
-.row.error {
+body .row.error {
   transform: translateY(100%); }
-  .row.error h1 {
+  body .row.error h1 {
     color: #ea0528; }
-  .row.error p {
+  body .row.error p {
     color: #5b5b5b; }
 
-.thumbnail {
+body .thumbnail {
   position: relative; }
-  .thumbnail .btn-img {
+  body .thumbnail .btn-img {
     position: absolute; }
 
 /*# sourceMappingURL=app.css.map */

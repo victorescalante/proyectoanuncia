@@ -24,4 +24,10 @@ class Municipality extends Model
     public function footbridges(){
         return $this->hasMany(Footbridge::class);
     }
+
+    public function scopeStateId($query,Footbridge $footbridge){
+
+        return $query->where('state_id','=',$footbridge->municipality->state->id)
+            ->get();
+    }
 }

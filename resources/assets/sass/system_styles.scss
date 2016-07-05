@@ -220,85 +220,146 @@ table
   }
 }
 
-
-
-section {
-  height:100%;
-  padding-top:50px;
-  padding-bottom:50px;
-  overflow:auto;
-  &.bg-1 {
-    background: url('http://anuncia.cc/img/autos.03.jpg') no-repeat center center fixed;
-    color:#fff;
-    background-size:cover;
-    & .container-logo{
-      padding: 3rem;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      & .logo{
-        background: url("http://anuncia.cc/img/HOME.logo_.02.jpg") no-repeat center center;
-        background-size: 100% 60%;
-        height: 20rem;
-        width: 30rem;
-        display: block;
-        margin: 0 auto;
-      }
-    }
-  }
-}
-
-.footer-page {
-  height: 60px;
-  background-color:#ea0528;
-  margin-top:50px;
-  padding-top:20px;
-  padding-bottom:20px;
-  p {
-    color:#FFF;
-  }
-}
-
-.row{
-  &.show{
-    & .search-form{
-      padding-top: 15px;
-      & .btn-default{
-        border-color: #ea0528;
+body{
+  &.red-background{
+    background-color: #B71C1C;
+    & .navbar{
+      margin-bottom: 0px;
+      &.portal{
         background-color: #ea0528;
-        color: #FFF;
+        border:0px;
+        & .container-fluid{
+          & .collapse{
+            & .nav{
+              & li{
+                & a{
+                  color: #FFF;
+                  font-family: apexsansclightlight;
+                  text-transform: lowercase;
+                  font-size: 16px;
+                }
+                &.active{
+                  & a{
+                    color: #000;
+                    background-color: #FFF;
+                  }
+                }
+              }
+            }
+          }
+          & .navbar-header{
+            & .navbar-toggle{
+              & .icon-bar{
+                background-color: #000;
+              }
+            }
+            & .navbar-brand{
+              padding: 8px;
+              & img{
+                width: 100px;
+              }
+            }
+          }
+        }
       }
     }
-    & h1,h2,h3,h4,h5{
-      color: #5b5b5b;
-      font-family: apexsansclightlight;
-      text-transform: lowercase;
-      & span{
-        font-size: smaller;
+  }
+  section {
+    height:100%;
+    padding-top:50px;
+    padding-bottom:50px;
+    overflow:auto;
+    &.bg-1 {
+      background: url('http://anuncia.cc/img/autos.03.jpg') no-repeat center center fixed;
+      color:#fff;
+      background-size:cover;
+      & .container-logo{
+        padding: 3rem;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        & .logo{
+          background: url("http://anuncia.cc/img/HOME.logo_.02.jpg") no-repeat center center;
+          background-size: 100% 60%;
+          height: 20rem;
+          width: 30rem;
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
+  }
+
+  .footer-page {
+    height: 60px;
+    background-color:#ea0528;
+    margin-top:50px;
+    padding-top:20px;
+    padding-bottom:20px;
+    p {
+      color:#FFF;
+    }
+  }
+
+  .row{
+    & .container{
+      &.login{
+        position: absolute;
+        top: 50%;
+        -ms-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        & .img-responsive{
+          max-width: 300px;
+          width: 100%;
+        }
+        & label{
+          color: #FFF;
+        }
+      }
+    }
+    &.show{
+      & .search-form{
+        padding-top: 15px;
+        & .btn-default{
+          border-color: #ea0528;
+          background-color: #ea0528;
+          color: #FFF;
+        }
+      }
+      & h1,h2,h3,h4,h5{
+        color: #5b5b5b;
+        font-family: apexsansclightlight;
+        text-transform: lowercase;
+        & span{
+          font-size: smaller;
+          color: #ea0528;
+        }
+      }
+    }
+    &.error{
+      transform: translateY(100%);
+      & h1{
         color: #ea0528;
       }
+      & p{
+        color: #5b5b5b;
+      }
     }
   }
-  &.error{
-    transform: translateY(100%);
-    & h1{
-      color: #ea0528;
-    }
-    & p{
-      color: #5b5b5b;
+
+
+
+
+  .thumbnail{
+    position: relative;
+    & .btn-img{
+      position: absolute;
     }
   }
 }
 
 
-
-
-.thumbnail{
-  position: relative;
-  & .btn-img{
-    position: absolute;
-  }
-}
 
 
 

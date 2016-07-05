@@ -27,4 +27,18 @@ class Footbridge extends Model
 
         return $this->belongsTo(Municipality::class, 'municipality_id');
     }
+
+    public function scopeCloseFootbridge($query,$footbridge){
+
+        return $query->select('footbridges.id','footbridges.name', 'images.url')
+            ->join('images','footbridges.id','=','footbridge_id')
+            ->where(function ($query) use ($footbridge) {
+                $query->where('footbridges.municipality_id', $footbridge->municipality_id)
+                    ->where('footbridges.id', '!=', $footbridge->id);
+            })
+            ->groupBy('footbridges.name')
+            ->orderBy('images.order','asc')
+            ->take(6)
+            ->get();
+    }
 }

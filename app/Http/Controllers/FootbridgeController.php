@@ -4,6 +4,7 @@ namespace Anuncia\Http\Controllers;
 
 use Anuncia\Footbridge;
 use Anuncia\Image;
+use Anuncia\Municipality;
 use Anuncia\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -91,26 +92,13 @@ class FootbridgeController extends Controller
 
         if($request->hasFile('url')){
 
-            $files     = $request->file('url');
-            $order=1;
-            foreach ($files as $file) {
-                if($file != null){
-                    $name = $file->getClientOriginalName();
-                    $count_number_imgs = 1;
-                    while(file_exists(public_path('images/footbridges/'.$name))){
-                        $name= $count_number_imgs.$name;
-                        $count_number_imgs++;
-                    }
-                    Storage::disk('footbridges')->put($name,File::get($file));
-                    $image = new Image();
-                    $image->name          = $name;
-                    $image->order         = $order;
-                    $image->url           = url('images/footbridges/'.$name);
-                    $image->footbridge_id = $footbridge->id;
-                    $image->save();
-                    $order++;
-                }
-            }
+            $collection = collect($request->file('url'))
+                ->reject(function ($file) {
+                    return empty($file);
+                });
+            //send images at ControllerImage
+            app(ImageController::class)->store($collection,$footbridge);
+
         }
 
         return redirect()->route('footbridge_home_path');
@@ -125,20 +113,9 @@ class FootbridgeController extends Controller
     public function show($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        $images = DB::table('images')->where('footbridge_id','=',$footbridge->id)
-            ->orderBy('order', 'asc')
-            ->get();
-        $footbridges_close = DB::table('footbridges')
-            ->join('images','footbridges.id','=','footbridge_id')
-            ->select('footbridges.id','footbridges.name', 'images.url')
-            ->where(function ($query) use ($footbridge) {
-                $query->where('footbridges.municipality_id', $footbridge->municipality_id)
-                    ->where('footbridges.id', '!=', $footbridge->id);
-            })
-            ->groupBy('footbridges.name')
-            ->orderBy('images.order','asc')
-            ->take(6)
-            ->get();
+        $images = Image::ofFootbridge($footbridge);
+        $footbridges_close = Footbridge::closeFootbridge($footbridge);
+            
         return view('footbridge.show',[
             'footbridge' => $footbridge,
             'footbridges_close' => $footbridges_close,
@@ -156,12 +133,9 @@ class FootbridgeController extends Controller
     {
         $footbridge = Footbridge::findOrFail($id);
         $states = State::all();
-        $municipalities = DB::table('municipalities')
-            ->where('state_id','=',$footbridge->municipality->state->id)
-            ->get();
-        $images = DB::table('images')->where('footbridge_id','=',$footbridge->id)
-            ->orderBy('order', 'asc')
-            ->get();
+        $municipalities = Municipality::StateId($footbridge);
+        $images = Image::ofFootbridge($footbridge);
+
         return view('footbridge.edit', [
             'footbridge' => $footbridge,
             'states'     => $states,
@@ -211,45 +185,31 @@ class FootbridgeController extends Controller
 
             $files     = $request->file('url');
             $id        = $request->get('id');
-            //var_dump($files);
-            //var_dump($id);
             $tam_files = count($files);
             $order=1;
 
+            $stringClear = collect($request->file('url'))
+                ->reject(function ($file) {
+                    return empty($file);
+                });
+
 
             //Buscamos cuales estan en la base de datos y pedimos una coleccion
-            $images_bd = DB::table('images')->where('footbridge_id','=',$footbridge->id);
-            $collection_img = collect($images_bd->get());
-            //var_dump($collection_img);
-            $keys_order_by_id =  $collection_img->keyBy('id');
-            $keys = $keys_order_by_id->keys();
-            //Ya tenemos todos los items de la base de datos guardados en $key
+            $images_delete = DB::table('images')
+                ->select('id','name')
+                ->where('footbridge_id','=',$footbridge->id)
+                ->whereNotIn('id',$id)
+                ->get();
 
 
-            $diff = $keys->diff($id);
-            //var_dump($diff->all());
+            if(!empty($images_delete)){
 
-            /*Si la diferencia tiene elementos entonces quiere decir que ya no estan en el
-             * Dom y se pueden eliminar
-             */
-            if(!$diff->isEmpty()){
+                foreach($images_delete as $item){
 
-                foreach($diff as $item){
-                    //var_dump("Entra a eliminar".$item);
-                    $name_delete = DB::table('images')->where('id','=',$item)->value('name');
-                    Storage::disk('footbridges')->delete($name_delete);
-                    Image::destroy($item);
-                    //var_dump($name_delete);
                 }
-
-
             }
 
-            //dd("Stop");
-
-
             for($i=0;$i<$tam_files;$i++){
-                //var_dump("problema puede aqui: ".empty($id[$i]));
 
                 if( $files[$i] != null && $id[$i] != 'new') {
                     $valor_id = $id[$i];
@@ -345,7 +305,9 @@ class FootbridgeController extends Controller
     public function question_destroy($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        return view('footbridge.delete',['footbridge' => $footbridge]);
+        return view('footbridge.delete',[
+            'footbridge' => $footbridge
+        ]);
     }
     
 
@@ -358,7 +320,7 @@ class FootbridgeController extends Controller
     public function destroy($id)
     {
         $footbridge = Footbridge::findOrFail($id);
-        $footbridge_images = Footbridge::findOrFail($id)->images;
+        $footbridge_images = Image::ofFootbridge($footbridge);
         foreach($footbridge_images as $footbridge_image){
             $name = $footbridge_image->name;
             Storage::disk('footbridges')->delete($name);

@@ -2,9 +2,12 @@
 
 namespace Anuncia\Http\Controllers;
 
+use Anuncia\Image;
 use Illuminate\Http\Request;
 
 use Anuncia\Http\Requests;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
@@ -15,7 +18,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        return "Hola";
     }
 
     /**
@@ -23,74 +26,25 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+    public function store($files,$footbridge)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-        return "Hola";
-        dd($request->all());
-        var_dump($files);
-        var_dump($footbridge);
-
-        $order_img = 1;
+        $order=1;
         foreach ($files as $file) {
-            $name = $file->getClientOriginalName();
-            $count_number_imgs = 1;
-            while(file_exists(storage_path('app/footbridges/'.$name))){
-                $name= $count_number_imgs.$name; $count_number_imgs++;
-            }
-
+            $name = $this->reName($file->getClientOriginalName());
             Storage::disk('footbridges')->put($name,File::get($file));
             $image = new Image();
             $image->name          = $name;
-            $image->order         = $order_img;
-            $image->url           = $name;
+            $image->order         = $order;
+            $image->url           = url('images/footbridges/'.$name);
             $image->footbridge_id = $footbridge->id;
             $image->save();
-            $order_img++;
+            $order++;
+
         }
         return;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
@@ -102,8 +56,20 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($item)
     {
-        //
+        Storage::disk('footbridges')->delete($item->name);
+        Image::destroy($item->id);
+    }
+
+
+    public function reName($name){
+
+        $count=1;
+        while(file_exists(public_path('images/footbridges/'.$name))){
+            $name = $count.$name;
+            $count++;
+        }
+        return $name;
     }
 }

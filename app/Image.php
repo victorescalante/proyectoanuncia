@@ -15,4 +15,11 @@ class Image extends Model
         return $this->belongsTo(Footbridges::class,'footbridge_id');
 
     }
+
+    public function scopeOfFootbridge($query,$footbridge){
+
+        return $query->where('footbridge_id','=',$footbridge->id)
+            ->orderBy('order', 'asc')
+            ->get();
+    }
 }
