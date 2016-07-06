@@ -35,6 +35,7 @@
                                     <label for="name" class="control-label">Nombre </label><span class="text-danger"> (requerido) </span>
                                     <input class="form-control" type="text" name="name" placeholder="Nombre ..." value="{{ $footbridge->name }}" required>
                                     <input type="hidden" name="url_home_catalog" value="{{ URL::previous() }}">
+                                    <input type="hidden" id="id_footbridge" name="id_footbridge" value="{{ $footbridge->id }}">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="availability" class="control-label">Disponibilidad</label><span class="text-danger"> (requerido) </span>
@@ -217,14 +218,15 @@
                             <div class="row">
                                 <div class="container_images col-md-12 form-group">
                                     @foreach($images as $image)
-                                        <div class="file dragActive">
-                                            <div class="image" style="background: url('{{ url('/images/footbridges/'.$image->name) }}')">
-                                                <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
-                                                <span class="glyphicon glyphicon-trash add-delete"></span>
+                                            <div class="file dragActive">
+                                                <div class="image" style="background: url('{{ url($image->thumbnail_path) }}')">
+                                                    <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
+                                                    <span class="glyphicon glyphicon-trash add-delete"></span>
+                                                </div>
+                                                <input class="select_image" type="file" accept="image/*" />
+                                                <input class="id_img" type="text" name="id" value="{{ $image->id }}"/>
+                                                <input type="text" name="order_img[]" value="{{ $image->id }}">
                                             </div>
-                                            <input class="select_image" type="file" name="url[]"/>
-                                            <input class="id_img" type="text" name="id[]" value="{{ $image->id }}"/>
-                                        </div>
                                     @endforeach
                                     <div class="content_file">
                                         <div class="file">
@@ -232,8 +234,9 @@
                                                 <span class="glyphicon glyphicon-plus-sign add-refresh"></span>
                                                 <span class="glyphicon glyphicon-trash add-delete"></span>
                                             </div>
-                                            <input class="select_image" type="file" name="url[]"/>
-                                            <input class="id_img" type="text" name="id[]" value="new"/>
+                                            <input class="select_image" type="file" accept="image/*" />
+                                            <input class="id_img" type="text" name="id" value="0"/>
+                                            <input type="text" name="order_img[]" value="0">
                                         </div>
                                     </div>
                                 </div>

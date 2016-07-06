@@ -11,17 +11,33 @@ var elixir = require('laravel-elixir');
  |
  */
 
+/*
 elixir(function(mix) {
     mix.sass('app.scss')
         .version(['public/css/app.css']);
 });
-
+*/
 
 
 elixir(function(mix) {
-    mix.scripts(['functions.js'], 'public/js/all.js')
+    mix.scripts([
+        'dropzone-sv-v1.js',
+        'map-create-update.js',
+        'parallax-index.js',
+        'functions.js',
+        'files.js',
+        'index.js',
+    ], 'public/js/all.js')
         .scripts(['map_show_view.js'], 'public/js/maps_show.js');
 });
+
+
+ elixir(function(mix){
+ mix.copy([
+ 'node_modules/bootstrap-sass/assets/fonts/bootstrap/'],
+ 'public/build/fonts/bootstrap'
+ );
+ });
 
 /*
 elixir(function(mix){

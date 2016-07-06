@@ -3,9 +3,6 @@
 //Routes of the page
 
 
-
-
-
 Route::get('/', [
     'uses' => 'PageController@home',
     'as'   => 'home_show_path',
@@ -96,10 +93,22 @@ Route::group(['middleware' => 'auth'], function () {
         'as'   => 'footbridge_delete_path',
     ]);
 
-    Route::get('sistema/images/store', [
-        'uses' => 'ImageController@store',
+    Route::post('sistema/images/store', [
+        'uses' => 'PhotoController@store',
         'as'   => 'images_store_path',
     ]);
+
+    Route::delete('sistema/images/destroy', [
+        'uses' => 'PhotoController@destroy',
+        'as'   => 'images_destroy_path',
+    ]);
+
+    Route::patch('sistema/images/update', [
+        'uses' => 'PhotoController@update',
+        'as'   => 'images_update_path',
+    ]);
+    
+
 
 
 

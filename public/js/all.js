@@ -1,17 +1,152 @@
-//Var globals
+function dropZone() {
 
-// Functions for ajax
-token = $("input[name='_token']").val();
+    var clearFormImg    = $('.container_images').html();
+    if($('.content_file').hasClass('content_file')){
+        clearFormImg = $('.content_file').html();
+    }
+
+    var MaxInputs       = 8;
+    var band = 0;
+    var x = $(".container_images .file").length; // the var x is the general container
+    var y = x-1; // the var y is the container images create
 
 
-/*
- $.ajaxSetup({
- headers: {
- 'X-CSRF-TOKEN': $("input[name='_token']").val(),
- }
- });
+    function load_image() {
+        $('html').on('click','.image', function (event) {
+            $(this).next(".select_image").trigger('click');
+        });
+
+    }
+
+    function delete_image() {
+        $('html').on('click','.add-delete ', function (event) {
+
+            var delete_file = $(this).parents('.file');
+
+            if(x==y){
+                band=1;
+            }
+
+            if(confirm('¿eliminar?')){
+                delete_file.fadeOut('fast');
+                delete_file.remove();
+                /**
+                 * Agregar desmanecimiento
+                 * setTimeout(function (){},1000);
+                 */
+                x--;
+                y=x-1;
+            }
+
+            if( (images_exist()==true) && (y==0 && x==1) || band==1) {
+                create_div_img();
+                band=0;
+            }
+
+            event.stopPropagation();
+
+        });
+
+    }
+
+    function load_images_front(){
+
+
+        $("html").on('change','.select_image',function (event) {
+
+            var fileImg =  $(this);
+
+            if(fileImg.parent('.file').hasClass('dragActive')){
+                var temp = 1;
+            }
+
+            var filesSelected = fileImg[0].files[0];
+
+            if (filesSelected) {
+
+                var fileReader = new FileReader();
+
+                fileReader.onload = function(fileLoadedEvent) {
+
+                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+
+                    fileImg.parent('.file').find('.image').css({
+                        'background': 'url('+srcData+')',
+                    });
+
+
+                    if(!temp) {
+
+                        create_div_img();
+
+                    }
+
+                }
+
+                fileReader.readAsDataURL(filesSelected);
+
+                fileImg.parent('.file').addClass('dragActive');
+
+
+            }
+
+
+
+        });
+
+
+    }
+
+    function create_div_img(){
+
+        if(x < MaxInputs)
+        {
+            //add new form img on DOM
+            var newImg = clearFormImg;
+            $('.container_images').append(newImg);
+            $('.content_file').find('.file').unwrap('<div></div>');
+            x++;
+        }
+        y++;
+
+    }
+
+    function images_exist(){
+
+        var val = $('.file').hasClass("dragActive");
+        return val;
+
+    }
+
+    function active_sortable(){
+
+
+        $( ".container_images" ).sortable({
+            items: '> .dragActive',
+            cursor: "move",
+            revert: 100,
+            opacity: 0.5,
+        });
+
+
+        $( ".container_images" ).disableSelection();
+    }
+
+
+
+    load_image();
+    load_images_front();
+    active_sortable();
+    delete_image();
+
+
+
+
+}
+/**
+ * Created by victor.escalante on 06/07/16.
  */
-
 function initMap() {
 
     var myLatLng = {lat: 19.3431244, lng: -99.4210658};
@@ -120,11 +255,11 @@ function initMap() {
     function getAddress(positions) {
         /* Other solution
          geocoder.geocode({'location': {lat: 19.4171849, lng: -99.5617849}}, function(results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
-                    console.log(results);
-                }
-            }
+         if (status === google.maps.GeocoderStatus.OK) {
+         if (results[1]) {
+         console.log(results);
+         }
+         }
          });
          */
 
@@ -199,221 +334,7 @@ function initMap() {
 
 
 
-
-function recargarS2(id)
-{
-    $('#municipalities').html('<option value="">Cargando datos ..</option>');
-
-    $.ajax({
-        method: "GET",
-        url: "/sistema/puentes/create/select/",
-        data: {
-            id: id,
-            _method: token
-        },
-        success: function(resp){
-            $('#municipalities').html(resp)
-        }
-    });
-}
-
-
-
-
-function dropZone() {
-
-    var clearFormImg    = $('.container_images').html();
-    if($('.content_file').hasClass('content_file')){
-        clearFormImg = $('.content_file').html();
-    }
-
-    var MaxInputs       = 8;
-    var band = 0;
-    var x = $(".container_images .file").length; // the var x is the general container
-    var y = x-1; // the var y is the container images create
-
-
-    function load_image() {
-        $('html').on('click','.image', function (event) {
-            $(this).next(".select_image").trigger('click');
-        });
-
-    }
-
-    function delete_image() {
-        $('html').on('click','.add-delete ', function (event) {
-
-            var delete_file = $(this).parents('.file');
-
-            if(x==y){
-                band=1;
-            }
-
-            if(confirm('¿eliminar?')){
-                delete_file.fadeOut('fast');
-                delete_file.remove();
-                /**
-                 * Agregar desmanecimiento
-                 * setTimeout(function (){},1000);
-                 */
-                x--;
-                y=x-1;
-            }
-
-            if( (images_exist()==true) && (y==0 && x==1) || band==1) {
-                create_div_img();
-                band=0;
-            }
-
-            event.stopPropagation();
-
-        });
-
-    }
-
-    function load_images_front(){
-
-
-        $("html").on('change','.select_image',function (event) {
-
-            var fileImg =  $(this);
-
-            if(fileImg.parent('.file').hasClass('dragActive')){
-                var temp = 1;
-            }
-
-            var filesSelected = fileImg[0].files[0];
-
-            if (filesSelected) {
-
-                var fileReader = new FileReader();
-
-                fileReader.onload = function(fileLoadedEvent) {
-
-                    var srcData = fileLoadedEvent.target.result; // <--- data: base64
-
-
-                    fileImg.parent('.file').find('.image').css({
-                       'background': 'url('+srcData+')',
-                    });
-
-
-                    if(!temp) {
-
-                        create_div_img();
-
-                    }
-
-                }
-
-                fileReader.readAsDataURL(filesSelected);
-
-                fileImg.parent('.file').addClass('dragActive');
-
-
-            }
-
-
-
-        });
-
-
-    }
-
-    function create_div_img(){
-
-        if(x < MaxInputs)
-        {
-            //add new form img on DOM
-            var newImg = clearFormImg;
-            $('.container_images').append(newImg);
-            $('.content_file').find('.file').unwrap('<div></div>');
-            x++;
-        }
-        y++;
-
-    }
-
-    function images_exist(){
-
-            var val = $('.file').hasClass("dragActive");
-            return val;
-
-    }
-
-    function active_sortable(){
-
-
-        $( ".container_images" ).sortable({
-            items: '> .dragActive',
-            cursor: "move",
-            revert: 100,
-            opacity: 0.5,
-        });
-
-
-        $( ".container_images" ).disableSelection();
-    }
-
-
-
-    load_image();
-    load_images_front();
-    active_sortable();
-    delete_image();
-
-
-
-
-}
-
-
-//----------------------------------
-//----------------------------------
-//----------------------------------
-function always(){
-
-}
-function oneTime(){
-
-    dropZone();
-
-}
-function lastTime(){
-}
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-$(document).ready(function() {
-    //-- No MOD----------------------------------//
-    always();
-    window.addEventListener("resize", always);
-    //-- No MOD----------------------------------//
-    oneTime();
-});
-//----------------------------------------------------------//
-$(window).load(function() {
-    //-- No MOD----------------------------------//
-    always();
-    window.addEventListener("resize", always);
-    //-- No MOD----------------------------------//
-    lastTime();
-});
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-//-------------------------------------------------------------------------------------//
-
-
+/*
 (function($) {
 
     $.fn.parallax = function(options) {
@@ -455,6 +376,337 @@ $(window).load(function() {
 
 $('.bg-1').parallax({
     speed :	0.25
+});*/
+
+// Functions for ajax
+token = $("input[name='_token']").val();
+
+
+/*
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    }
 });
+*/
+
+
+function recargarS2(id)
+{
+    $('#municipalities').html('<option value="">Cargando datos ..</option>');
+
+    $.ajax({
+        method: "GET",
+        url: "/sistema/puentes/create/select/",
+        data: {
+            id: id,
+            _method: token
+        },
+        success: function(resp){
+            $('#municipalities').html(resp)
+        }
+    });
+}
+
+
+
+function active_sortable(){
+
+
+    $( ".container_images" ).sortable({
+        items: '> .dragActive',
+        cursor: "move",
+        revert: 100,
+        opacity: 0.5,
+    });
+
+
+    $( ".container_images" ).disableSelection();
+}
+
+
+/**
+ * Created by victor.escalante on 06/07/16.
+ */
+
+function files() {
+
+
+    token = $("input[name='_token']").val();
+
+    var clearFormImg = $('.content_file').html();
+
+    function load_image() {
+        $('html').on('click', '.image', function (event) {
+            $(this).next(".select_image").trigger('click');
+        });
+
+    }
+
+    function load_images_front() {
+
+
+        $("html").on('change', '.select_image', function (event) {
+
+            var fileImg = $(this);
+            var id_footbridge = $('#id_footbridge').val();
+            var inputtext = fileImg.next();
+            var inputorder = inputtext.next();
+            console.log("Este es el valro de input text "+inputtext.val());
+            if(inputtext.val()==0){
+                /*crea un nuevo registro */
+                console.log(inputtext);
+                var file = fileImg.context.files[0];
+                var formData = new FormData();
+                formData.append('_token', token);
+                formData.append('id_footbridge', id_footbridge);
+                formData.append('Photo', file);
+
+
+
+
+                $.ajax(send_ajax('POST', '../../images/store', formData))
+                    .done(function (value, status, xhr) {
+
+                        print_file(fileImg);
+                        inputtext.attr('id',value.id);
+                        inputtext.attr('value',value.id);
+                        inputorder.attr('value',value.id);
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                    alert('Error al cargar imagen!!');
+
+                }).always(function () {
+
+
+                });
+
+            }else{
+
+                var update_file = $(this).parents('.file');
+                var input_with_id = update_file.find('.id_img');
+                var id_update = input_with_id.val();
+                console.log("valor del id_img "+id_update);
+                /* actualiza un registro */
+                console.log(inputtext);
+                var file = fileImg.context.files[0];
+                var formData3 = new FormData();
+                formData3.append('_token', token);
+                formData3.append('_method', 'patch');
+                formData3.append('Photo', file);
+                formData3.append('id', id_update);
+
+
+
+
+                $.ajax(send_ajax('POST', '../../images/update', formData3))
+                    .done(function (value, status, xhr) {
+
+                        print_file(fileImg);
+                        inputtext.attr('id',value.id);
+                        inputtext.attr('value',value.id);
+
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                    alert('Error al actualizar imagen!!');
+
+                }).always(function () {
+
+
+                });
+
+            }
+
+
+        });
+
+
+    }
+
+
+    function create_new_div() {
+
+        var newImg = clearFormImg;
+
+        console.log('clearFormImg tiene: '+clearFormImg);
+
+        $('.container_images').append(newImg);
+
+
+
+        $('.content_file').find('.file').unwrap('<div></div>');
+
+
+    }
+
+    function print_file(fileImg) {
+
+        var x=0;
+
+        if (fileImg.parent('.file').hasClass('dragActive')) {
+            var temp = 1;
+        }
+
+        var filesSelected = fileImg[0].files[0];
+
+        if (filesSelected) {
+
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (fileLoadedEvent) {
+
+                var srcData = fileLoadedEvent.target.result; // <--- data: base64
+
+
+                fileImg.parent('.file').find('.image').css({
+                    'background': 'url(' + srcData + ')',
+                });
+
+
+                if (!temp) {
+
+                    console.log("Entro x: "+x);
+
+                    create_new_div();
+
+                }
+
+            }
+
+            fileReader.readAsDataURL(filesSelected);
+
+            fileImg.parent('.file').addClass('dragActive');
+
+
+        }
+
+    }
+
+    // Methods the Send request Ajax
+
+    function send_ajax(type, url, data) {
+
+        var ajaxOptions =
+
+        {
+
+            type: type,
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            cache: false,
+            beforeSend: function () {
+
+                console.log("enviando");
+
+            },
+
+
+        }
+
+        return ajaxOptions;
+
+    }
+
+    function delete_image() {
+        $('html').on('click','.add-delete ', function (event) {
+
+            var delete_file = $(this).parents('.file');
+            var input_with_id = delete_file.find('.id_img');
+            var id_delete = input_with_id.val();
+
+
+            if(confirm('¿eliminar?')){
+
+                var formData2 = new FormData();
+                console.log("id a eliminar: "+id_delete);
+                console.log("Esto es lo que guarda el token: "+token);
+                formData2.append('_token', token);
+                formData2.append('_method', 'delete');
+                formData2.append('id', id_delete);
+
+                $.ajax(send_ajax('POST', '../../images/destroy', formData2))
+                    .done(function (value, status, xhr) {
+
+                        console.log('Eliminado correctamente');
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+
+                    alert('Error!!');
+
+                }).always(function () {
+
+
+                });
+
+                // Delete of the DOOM
+                delete_file.fadeOut('fast');
+                delete_file.remove();
+
+            }
+
+            event.stopPropagation();
+
+        });
+
+    }
+
+
+
+    load_image();
+    load_images_front();
+    delete_image();
+}
+
+//----------------------------------
+//----------------------------------
+//----------------------------------
+function always(){
+
+}
+function oneTime(){
+
+    //dropZone();
+    files();
+    active_sortable();
+
+}
+function lastTime(){
+}
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+$(document).ready(function() {
+    //-- No MOD----------------------------------//
+    always();
+    window.addEventListener("resize", always);
+    //-- No MOD----------------------------------//
+    oneTime();
+});
+//----------------------------------------------------------//
+$(window).load(function() {
+    //-- No MOD----------------------------------//
+    always();
+    window.addEventListener("resize", always);
+    //-- No MOD----------------------------------//
+    lastTime();
+});
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
+//-------------------------------------------------------------------------------------//
 
 //# sourceMappingURL=all.js.map

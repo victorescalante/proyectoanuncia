@@ -4,9 +4,6 @@ namespace Anuncia\Http\Controllers;
 
 
 use Anuncia\Http\Requests\FootbridgeRequest;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Laracasts\Flash\Flash;
 use Anuncia\Municipality;
@@ -105,13 +102,11 @@ class FootbridgeController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param FootbridgeRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(FootbridgeRequest $request, $id)
     {
 
         $footbridge = Footbridge::findOrFail($id);
@@ -136,118 +131,7 @@ class FootbridgeController extends Controller
         $footbridge->length          = $request->get('length');
 
 
-        $band=1; //Esta es una variable para validar que haya imagenes en el dom
-
-        if($request->hasFile('url') || $band==1){
-
-            $files     = $request->file('url');
-            $id        = $request->get('id');
-            $tam_files = count($files);
-            $order=1;
-
-            $stringClear = collect($request->file('url'))
-                ->reject(function ($file) {
-                    return empty($file);
-                });
-
-
-            //Buscamos cuales estan en la base de datos y pedimos una coleccion
-            $images_delete = DB::table('images')
-                ->select('id','name')
-                ->where('footbridge_id','=',$footbridge->id)
-                ->whereNotIn('id',$id)
-                ->get();
-
-
-            if(!empty($images_delete)){
-
-                foreach($images_delete as $item){
-
-                }
-            }
-
-            for($i=0;$i<$tam_files;$i++){
-
-                if( $files[$i] != null && $id[$i] != 'new') {
-                    $valor_id = $id[$i];
-                    $valor_file = $files[$i];
-                    //var_dump($valor_id);
-                    //var_dump($valor_file);
-                    //Proceso de Actualización
-                    $image = Photo::findOrFail($valor_id);
-                    var_dump($image);
-                    if ($image) {
-                        $anterior = $image->name;
-                        //Guardo en el storage
-                        $name = $valor_file->getClientOriginalName();
-                        //var_dump($name);
-                        $count_number_imgs = 1;
-                        while (file_exists(public_path('images/footbridges/' . $name))) {
-                            $name = $count_number_imgs . $name;
-                            $count_number_imgs++;
-                        }
-                        Storage::disk('footbridges')->put($name, File::get($valor_file));
-                        //Termina el proceso de guardado
-                        //Actualización del registro en la bd
-                        $image->name = $name;
-                        $image->order = $order;
-                        $image->url = url('images/footbridges/' . $name);
-                        $image->save();
-                        //var_dump("Entro a actualizar");
-                        //Termina proceso de actualizacion
-                        //Empieza eliminación en el Storage Path
-                        Storage::disk('footbridges')->delete($anterior);
-                        //Termina la eliminación en el Storage Path
-                        //var_dump('Termino la actualización junto con la eliminacion');
-                        $order++;
-                    }
-                }
-
-
-                if($files[$i]  != null && $id[$i] == 'new'){
-                    //var_dump("Entro a dar de alta");
-                    // Se da de alta si no se encuentra en la base de datos
-                    $valor_file = $files[$i];
-                    $name = $valor_file->getClientOriginalName();
-                    $count_number_imgs = 1;
-                    while(file_exists(public_path('images/footbridges/'.$name))){
-                        $name= $count_number_imgs.$name;
-                        $count_number_imgs++;
-                    }
-                    Storage::disk('footbridges')->put($name,File::get($valor_file));
-                    $image = new Photo();
-                    $image->name          = $name;
-                    $image->order         = $order;
-                    $image->url           = url('images/footbridges/'.$name);
-                    $image->footbridge_id = $footbridge->id;
-                    $image->save();
-                    //dd("Guardo la imagen");
-                    $order++;
-                }
-
-
-                if($files[$i] == null && $id[$i] != null && $id[$i]!='new' ){
-                    //var_dump("Entra aqui el id esta lleno");
-                    $valor_id = $id[$i];
-                    $image = Photo::findOrFail($valor_id);
-                    //var_dump($image);
-                    if ($image) {
-                        $image->order = $order;
-                        $image->save();
-                    }
-                    $order++;
-
-                }
-
-
-                if($files[$i] == null && empty($id[$i])){
-                    var_dump("No debe hacer nada");
-                }
-            }
-
-            //dd("Termino proceso");
-        }
-
+        $this->orderPhotos($request->get('order_img'));
 
         $footbridge->save();
 
@@ -294,5 +178,15 @@ class FootbridgeController extends Controller
         return view('footbridge.select')->with([
             'municipalities' => $municipalities,
         ]);
+    }
+
+    public function orderPhotos($photos){
+
+        for($i=1;$i<count($photos);$i++){
+            $photo = Photo::findOrFail($photos[$i-1]);
+            $photo->order = $i;
+            $photo->save();
+        }
+
     }
 }

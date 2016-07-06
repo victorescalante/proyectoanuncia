@@ -17,7 +17,8 @@ class CreateImagesTable extends Migration
             $table->integer('footbridge_id')->unsigned();
             $table->foreign('footbridge_id')->references('id')->on('footbridges')->onDelete('cascade');
             $table->string('name');
-            $table->string('url');
+            $table->string('path');
+            $table->string('thumbnail_path');
             $table->integer('order');
             $table->timestamps();
         });

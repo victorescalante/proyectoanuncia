@@ -8,7 +8,7 @@
     @foreach($images as $image)
         <div class="col-xs-6 col-md-2">
             <a href="#" class="thumbnail">
-                <img src="{{ $image->url }}" alt="...">
+                <img src="{{ url($image->thumbnail_path) }}" alt="...">
             </a>
         </div>
     @endforeach
@@ -24,7 +24,7 @@
             <div class="col-xs-6 col-sm-4 col-md-4">
                 <div class="thumbnail">
                     <a href="{{ route('footbridge_show_path',$footbridge_close->id) }}">
-                        <img src="{{ $footbridge_close->url }}" alt="...">
+                        <img src="{{ url($footbridge_close->thumbnail_path) }}" alt="...">
                     </a>
                     <div class="caption">
                         <h5><a href="{{ route('footbridge_show_path',$footbridge_close->id) }}"><span class="glyphicon glyphicon-link"></span> {{ $footbridge_close->name }}</a></h5>

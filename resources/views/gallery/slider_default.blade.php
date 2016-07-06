@@ -15,11 +15,11 @@
         @foreach($images as $image)
             @if($image->order==1)
                 <div class="item active">
-                    <img src="{{ $image->url }}" alt="...">
+                    <img src="{{ url($image->path)  }}" alt="...">
                 </div>
             @else
                 <div class="item">
-                    <img src="{{ $image->url }}" alt="...">
+                    <img src="{{ url($image->path)  }}" alt="...">
                 </div>
             @endif
         @endforeach
