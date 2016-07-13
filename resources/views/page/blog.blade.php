@@ -21,7 +21,7 @@
                 @if($posts)
                     @foreach($posts as $post)
                         <h2>
-                            <a href="entrada/{{$post->id}}">{{ $post->title }}</a>
+                            <a href="{{ url('blog/entrada').'/'.$post->id }}">{{ $post->title }}</a>
                         </h2>
                         <p class="lead">
                             por <a href="#">{{ $post->user->name }}</a>
@@ -29,10 +29,10 @@
                         <p><span class="glyphicon glyphicon-time"></span>
                             Publicado {{ $post->created_at->format('j M Y , g:ia') }}</p>
                         <hr>
-                        <a href="entrada/{{$post->id}}"><img class="img-responsive" src="{{ $post->image_path }}" alt=""></a>
+                        <a href="{{ url('blog/entrada').'/'.$post->id }}"><img class="img-responsive" src="{{ $post->image_path }}" alt=""></a>
                         <hr>
                         <p>{{ $post->extract }}</p>
-                        <a class="btn btn-primary" href="entrada/{{$post->id}}">Leer más <span
+                        <a class="btn btn-primary" href="{{ url('blog/entrada').'/'.$post->id }}">Leer más <span
                                     class="glyphicon glyphicon-chevron-right"></span></a>
 
                         <hr>
