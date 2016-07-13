@@ -71,12 +71,12 @@
                                 <label class="control-label">Latitud</label>
                                 <input class="form-control latitude" type="text" name="latitude"
                                        pattern="^(\-?\d+(\.\d+)?)$" placeholder="-99.23752"
-                                       value="{{ old('latitude') }}">
+                                       value="{{ old('latitude') }}" required>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label class="control-label">Longitud</label>
                                 <input class="form-control longitude" type="text" name="length"
-                                       pattern="^(\-?\d+(\.\d+)?)$" placeholder="10.23094" value="{{ old('length') }}">
+                                       pattern="^(\-?\d+(\.\d+)?)$" placeholder="10.23094" value="{{ old('length') }}" required>
                             </div>
                         </div>
                         <div class="row">
@@ -89,7 +89,7 @@
                                            value="{{ old('address') }}">
                                 </div>
                                 <div class="col-xs-4">
-                                    <a type="button" id="btnAddress" class="btn btn-primary">Buscar Dirección</a>
+                                    <a id="btnAddress" class="btn btn-primary">Buscar Dirección</a>
                                 </div>
 
                             </div>

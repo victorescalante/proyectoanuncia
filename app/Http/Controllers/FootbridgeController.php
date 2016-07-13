@@ -25,7 +25,9 @@ class FootbridgeController extends Controller
     public function index()
     {
 
-        $footbridges = Footbridge::with('municipality')->paginate(10);
+        //$footbridges = Footbridge::with('municipality')->paginate(10);
+        $footbridges = Footbridge::with('municipality')->get();
+
 
         return view('footbridge.home')->with(['footbridges' => $footbridges]);
     }
@@ -51,11 +53,12 @@ class FootbridgeController extends Controller
     {
 
         $footbridge = new Footbridge($request->all());
+
         $footbridge->save();
 
         Flash::success('Footbridge '.$footbridge->name.' created');
 
-        return redirect()->route('footbridge_home_path');
+        return redirect()->route('footbridge_edit_path',$footbridge->id);
     }
 
     /**

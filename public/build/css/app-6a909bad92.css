@@ -5944,4 +5944,9 @@ body .thumbnail {
   body .thumbnail .btn-img {
     position: absolute; }
 
+.edit {
+  background-color: #5b5b5b; }
+  .edit a {
+    color: white; }
+
 /*# sourceMappingURL=app.css.map */

@@ -4,6 +4,7 @@ namespace Anuncia\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Anuncia\Post;
 
 class PageController extends Controller
 {
@@ -23,7 +24,7 @@ class PageController extends Controller
     {
         if(!empty($request->get('municipality'))){
             $footbridges = DB::table('footbridges')
-                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'images.url')
+                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'images.path')
                 ->join('images','footbridges.id','=','images.footbridge_id')
                 ->join('municipalities','footbridges.municipality_id','=','municipalities.id')
                 ->where('municipalities.id','=',$request->get('municipality'))
@@ -35,7 +36,7 @@ class PageController extends Controller
             ]);
         }else{
             $footbridges = DB::table('footbridges')
-                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'images.url')
+                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'path')
                 ->join('images','footbridges.id','=','images.footbridge_id')
                 ->join('municipalities','footbridges.municipality_id','=','municipalities.id')
                 ->groupBy('footbridges.name')
@@ -58,7 +59,7 @@ class PageController extends Controller
         if(!empty($request->get('search'))){
 
              $footbridges = DB::table('footbridges')
-                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'images.url')
+                ->select('municipalities.name as namem','municipalities.id as idm','footbridges.id','footbridges.name as namef', 'images.path')
                 ->join('images','footbridges.id','=','images.footbridge_id')
                 ->join('municipalities','footbridges.municipality_id','=','municipalities.id')
                 ->where('municipalities.id','like','%'.$request->get('search').'%')
@@ -88,6 +89,23 @@ class PageController extends Controller
     public function contact()
     {
         return view('page.contact');
+    }
+
+
+    public function blog(){
+
+        $posts = Post::paginate(2);
+
+        return view('page.blog')->with('posts',$posts);
+
+    }
+
+
+    public function show_posts($id){
+
+        $post = Post::findOrFail($id);
+        return view('post.show')->with('post',$post);
+
     }
 
 

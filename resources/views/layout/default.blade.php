@@ -29,14 +29,18 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="{{ url('catalogo') }}">Catálogo</a></li>
+              <li><a href="{{ url('blog') }}">Noticias</a></li>
               <li><a href="{{ url('contacto') }}">Contacto</a></li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </div>
     </nav>
+
     @yield('background')
-    <div class="container">
+
+
+
     <!--
     @if($currentUser)
       Hola {{ $currentUser->name }},
@@ -46,7 +50,7 @@
     @endif
       -->
     @yield('content')
-  </div>
+
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     @yield('js_map')

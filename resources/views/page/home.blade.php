@@ -1,6 +1,7 @@
 @extends('layout.default')
 
 @section('background')
+
     <!--parallax 1 -->
     <section class="bg-1">
         <div class="container-logo">
@@ -12,6 +13,9 @@
 
 @section('content')
 
+    <div class="container">
+
+    </div>
 
 
 @endsection

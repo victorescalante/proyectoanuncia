@@ -2,13 +2,13 @@
 
 namespace Anuncia\Http\Controllers;
 
-use Anuncia\addPhotoToFootbridge;
+use Anuncia\Http\Requests\addPhotoRequest;
 use Anuncia\updatePhotoToFootbridge;
-use Anuncia\Photo;
+use Anuncia\addPhotoToFootbridge;
 use Illuminate\Http\Request;
 use Anuncia\Http\Requests;
 use Anuncia\Footbridge;
-use Anuncia\Http\Requests\addPhotoRequest;
+use Anuncia\Photo;
 
 
 

@@ -8,6 +8,16 @@ Route::get('/', [
     'as'   => 'home_show_path',
 ]);
 
+Route::get('blog', [
+    'uses' => 'PageController@blog',
+    'as'   => 'blog_show_path',
+]);
+
+Route::get('blog/entrada/{id}', [
+    'uses' => 'PageController@show_posts',
+    'as'   => 'blog_entries_show_path',
+]);
+
 
 Route::get('contacto', [
     'uses' => 'PageController@contact',
@@ -107,8 +117,13 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'PhotoController@update',
         'as'   => 'images_update_path',
     ]);
-    
 
+
+
+
+    //Post
+
+    Route::resource('sistema/post', 'PostController');
 
 
 

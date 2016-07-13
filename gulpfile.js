@@ -11,12 +11,12 @@ var elixir = require('laravel-elixir');
  |
  */
 
-/*
+
 elixir(function(mix) {
     mix.sass('app.scss')
         .version(['public/css/app.css']);
 });
-*/
+
 
 
 elixir(function(mix) {
@@ -28,9 +28,10 @@ elixir(function(mix) {
         'files.js',
         'index.js',
     ], 'public/js/all.js')
-        .scripts(['map_show_view.js'], 'public/js/maps_show.js');
+        .scripts(['map_show_view.js'], 'public/js/maps_show.js')
+        .scripts(['ckeditor.js'], 'public/js/ckeditor.js')
 });
-
+/*
 
  elixir(function(mix){
  mix.copy([
@@ -39,7 +40,7 @@ elixir(function(mix) {
  );
  });
 
-/*
+
 elixir(function(mix){
     mix.copy([
             'node_modules/bootstrap-sass/assets/fonts/bootstrap/'],
