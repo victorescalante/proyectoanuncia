@@ -35,6 +35,30 @@ $c-cyan-normal: #5bc0de;
 $c-red-dark: #b3241c;
 
 
+.container-description{
+  &.separation,.separation{
+    padding-top: 50px;
+  }
+  height: 50%;
+  h3,h2,h1 {
+    color: #5b5b5b;
+    font-family: apexsansclightlight;
+    text-transform: lowercase;
+
+  }
+
+  p {
+    color: #5b5b5b;
+    font-size: 18px;
+  }
+
+  img{
+    margin: 0 auto;
+  }
+}
+
+
+
 .container_images{
   padding: 20px;
   background-color: #eeeeee;
@@ -285,6 +309,14 @@ body{
           width: 30rem;
           display: block;
           margin: 0 auto;
+
+          @media (min-width: 1200px) {
+
+            height: 30rem;
+            width: 45rem;
+
+          }
+
         }
       }
     }

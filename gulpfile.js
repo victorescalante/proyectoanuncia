@@ -18,7 +18,7 @@ elixir(function(mix) {
 });
 
 
-
+/*
 elixir(function(mix) {
     mix.scripts([
         'dropzone-sv-v1.js',
@@ -31,7 +31,7 @@ elixir(function(mix) {
         .scripts(['map_show_view.js'], 'public/js/maps_show.js')
         .scripts(['ckeditor.js'], 'public/js/ckeditor.js')
 });
-/*
+
 
  elixir(function(mix){
  mix.copy([

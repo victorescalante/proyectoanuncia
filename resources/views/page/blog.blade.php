@@ -4,19 +4,23 @@
     <!-- Page Content -->
     <div class="container">
 
+        <div class="row">
+
+            <h1 class="page-header text-center">
+                Noticias
+            </h1>
+
+
+            <br>
+
+        </div>
+
 
         <div class="row">
 
 
             <!-- Blog Entries Column -->
             <div class="col-md-8">
-
-                <h1 class="page-header">
-                    Noticias
-                    <small>Recientes</small>
-                </h1>
-
-                <br>
 
                 @if($posts)
                     @foreach($posts as $post)

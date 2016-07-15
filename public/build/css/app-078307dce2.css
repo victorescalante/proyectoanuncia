@@ -5742,6 +5742,20 @@ Styles for system anuncia
 .invisible {
   display: none; }
 
+.container-description {
+  height: 50%; }
+  .container-description.separation, .container-description .separation {
+    padding-top: 50px; }
+  .container-description h3, .container-description h2, .container-description h1 {
+    color: #5b5b5b;
+    font-family: apexsansclightlight;
+    text-transform: lowercase; }
+  .container-description p {
+    color: #5b5b5b;
+    font-size: 18px; }
+  .container-description img {
+    margin: 0 auto; }
+
 .container_images {
   padding: 20px;
   background-color: #eeeeee;
@@ -5897,6 +5911,10 @@ body section {
         width: 30rem;
         display: block;
         margin: 0 auto; }
+        @media (min-width: 1200px) {
+          body section.bg-1 .container-logo .logo {
+            height: 30rem;
+            width: 45rem; } }
 
 body .footer-page {
   height: 60px;
